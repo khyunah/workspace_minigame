@@ -1,3 +1,7 @@
 class Student {
+
  syso("안녕하세요");
 }
+
+
+
