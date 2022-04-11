@@ -1,2 +1,0 @@
-merge git a.txt 수정 함
-dkdkdkkdk
