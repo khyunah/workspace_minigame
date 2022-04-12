@@ -9,7 +9,7 @@ public class Player extends JLabel {
 	private int playerY;
 	
 	// 방향
-//	private PlayerWay playerWay;
+	private PlayerWay playerWay;
 	
 	// 움직임
 	private boolean left;
@@ -78,12 +78,12 @@ public class Player extends JLabel {
 	public void setRightwallCrash(boolean rightwallCrash) {
 		this.rightwallCrash = rightwallCrash;
 	}
-//	public PlayerWay getPlayerWay() {
-//		return playerWay;
-//	}
-//	public void setPlayerWay(PlayerWay playerWay) {
-//		this.playerWay = playerWay;
-//	}
+	public PlayerWay getPlayerWay() {
+		return playerWay;
+	}
+	public void setPlayerWay(PlayerWay playerWay) {
+		this.playerWay = playerWay;
+	}
 	public Player() {
 		initObject();
 		initSetting();
@@ -103,7 +103,7 @@ public class Player extends JLabel {
 		down = false;
 		leftwallCrash = false;
 		rightwallCrash = false;
-//		playerWay = PlayerWay.RIGHT;
+		playerWay = PlayerWay.RIGHT;
 		// 크기, 위치 지정
 		setIcon(playerR);
 		setSize(100, 100);
@@ -115,24 +115,24 @@ public class Player extends JLabel {
 			
 			@Override
 			public void run() {
-//				if (playerWay == PlayerWay.LEFT) {
-//					left();
-//				} else {
-//					right();
-//				}
-//				try {
-//					Thread.sleep(10);
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
+				if (playerWay == PlayerWay.LEFT) {
+					left();
+				} else {
+					right();
+				}
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 			}
 		}).start();
 	}
 	
 	public void left() {
-//		playerWay = PlayerWay.LEFT;
+		playerWay = PlayerWay.LEFT;
 		left = true;
 		while(left) {
 			setIcon(playerL);
