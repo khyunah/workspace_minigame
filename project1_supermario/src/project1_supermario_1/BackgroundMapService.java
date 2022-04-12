@@ -9,10 +9,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class BackgroundMapService {
+public class BackgroundMapService extends Player {
 
 	private BufferedImage bgServiceImage;
-	private Player player;
 
 	private final int LEFT_X = 0;
 	private final int RIGHT_X = 100;
@@ -60,7 +59,7 @@ public class BackgroundMapService {
 	 * @return
 	 */
 	private boolean isWallCrashColor(int correctionXPoint) {
-		Color color = new Color(bgServiceImage.getRGB(player.getPlayerX() + correctionXPoint, player.getPlayerY()));
+		Color color = new Color(bgServiceImage.getRGB(getPlayerX() + correctionXPoint, getPlayerY()));
 		int red = color.getRed();
 		int green = color.getGreen();
 		int blue = color.getBlue();
@@ -77,29 +76,29 @@ public class BackgroundMapService {
 	}
 
 	private void isBottomCrashColor(SuperMarioFrame marioFrame) {
-		Color color = new Color(bgServiceImage.getRGB(player.getPlayerX() + BOTTOM_X, player.getPlayerY() + BOTTOM_Y));
+		Color color = new Color(bgServiceImage.getRGB(getPlayerX() + BOTTOM_X, getPlayerY() + BOTTOM_Y));
 		int red = color.getRed();
 		int green = color.getGreen();
 		int blue = color.getBlue();
 
 		// 바닥이 흰색 일때
 		if (red == 255 && green == 255 && blue == 255) {
-			player.setDown(true);
+			setDown(true);
 		} else if (red == 0 && green == 255 && blue == 0) {
 			// player의 바닥 색상이 초록색 일때
-			player.setDown(false);
+			setDown(false);
 			marioFrame.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyPressed(KeyEvent e) {
 					switch (e.getKeyCode()) {
 					case KeyEvent.VK_DOWN:
-						player.setDown(true);
+						setDown(true);
 						break;
 					}
 				}
 			});
 		} else {
-			player.setDown(false);
+			setDown(false);
 		}
 	}
 }
