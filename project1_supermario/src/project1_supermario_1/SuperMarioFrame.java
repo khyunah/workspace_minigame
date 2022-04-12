@@ -1,5 +1,7 @@
 package project1_supermario_1;
 
-public class SuperMarioFrame {
+import javax.swing.JFrame;
+
+public class SuperMarioFrame extends JFrame {
 
 }
