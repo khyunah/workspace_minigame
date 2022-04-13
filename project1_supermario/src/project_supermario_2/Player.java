@@ -42,8 +42,8 @@ public class Player extends JLabel implements Moveable {
 	}
 
 	private void initObject() {
-		playerR = new ImageIcon("images/mario_right.png");
-		playerL = new ImageIcon("images/mario_left.png");
+		playerR = new ImageIcon("images/mario1_right.png");
+		playerL = new ImageIcon("images/mario1_left.png");
 	}
 
 	private void initSetting() {
