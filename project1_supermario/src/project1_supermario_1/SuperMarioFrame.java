@@ -1,49 +1,82 @@
 package project1_supermario_1;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 
-@Data
 @AllArgsConstructor
+@Getter
 
-public class SuperMarioFrame extends JFrame{
+public class SuperMarioFrame{
 
 	private JFrame frame;
 	JPanel panel;
+	Player player;
 
+	
+	// 파일 없어도 오류 안남
 	Image backgroundImage = new ImageIcon("images/backgroundMap.gif").getImage();
+	Image playerR = new ImageIcon("images/mario_right.png").getImage();
+	
 
-	int x = 0;
+	private int x = 0;
 
 	public SuperMarioFrame() {
+		player = new Player();
 		initData();
 		setInitLayout();
+		addEventListener();
 	}
 
 	private void initData() {
 		frame = new JFrame();
-		frame.setSize(1500, 1100);
+		frame.setSize(1500, 850);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panel = new CustomPanel(); // 다형성
 	}
 
 	public void setInitLayout() {
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
+		frame.setVisible(true);
 		panel.setLayout(null);
-//		add(panel);
-
+		
 	}
+	
+	public void addEventListener() {
+		panel.addKeyListener(new KeyAdapter() {
+		@Override
+		public void keyPressed(KeyEvent e) {
+			
+			switch (e.getKeyCode()) {
+			case KeyEvent.VK_UP:
+				player.up();
+				break;
+			case KeyEvent.VK_RIGHT:
+				player.right();
+				break;
+			case KeyEvent.VK_LEFT:
+				player.left();
+				break;
+			case KeyEvent.VK_DOWN:
+				player.down();
+				break;
+			}
+			
 
+		}
+		
+		
+		});
+	}
 	// 내부 클래스
 	private class CustomPanel extends JPanel {
 		public CustomPanel() {
@@ -52,15 +85,13 @@ public class SuperMarioFrame extends JFrame{
 
 				@Override
 				public void run() {
-					while (true) {
-						x--;
+						x = x - player.getPlayerX();
 						repaint();
 						try {
-							Thread.sleep(10);
+							Thread.sleep(500);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
-					}
 				}
 			}).start();
 
@@ -69,23 +100,14 @@ public class SuperMarioFrame extends JFrame{
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			g.drawImage(backgroundImage, x, 0, 4000, 800, this);
+			g.drawImage(backgroundImage, x, 0, 6000, 800, this);
+			g.drawImage(playerR, 100, 640, 80, 80, null);
 		}
 
 	} // end of inner class
 
 	public static void main(String[] args) {
-		// ㅁㄹ;
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					new SuperMarioFrame().frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-
+		new SuperMarioFrame();
 	}
 
 }
