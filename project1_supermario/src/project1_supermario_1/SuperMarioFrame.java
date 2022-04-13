@@ -11,12 +11,11 @@ import javax.swing.JPanel;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 
-public class SuperMarioFrame extends JFrame{
+public class SuperMarioFrame{
 
 	private JFrame frame;
 	JPanel panel;

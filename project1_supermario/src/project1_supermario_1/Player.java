@@ -89,6 +89,9 @@ public class Player extends JLabel implements Moveable {
 					setIcon(playerR);
 					playerX -= playerX;
 					setLocation(playerX, playerY);
+					setIcon(playerL);
+					playerX -= playerX;
+					setLocation(playerX, playerY);
 					threadSleep(10);
 				}
 				right = false;

@@ -87,16 +87,16 @@ public class BackgroundMapService extends Player {
 		} else if (red == 0 && green == 255 && blue == 0) {
 			// player의 바닥 색상이 초록색 일때
 			setDown(false);
-			marioFrame.addKeyListener(new KeyAdapter() {
-				@Override
-				public void keyPressed(KeyEvent e) {
-					switch (e.getKeyCode()) {
-					case KeyEvent.VK_DOWN:
-						setDown(true);
-						break;
-					}
-				}
-			});
+//			marioFrame.addKeyListener(new KeyAdapter() {
+//				@Override
+//				public void keyPressed(KeyEvent e) {
+//					switch (e.getKeyCode()) {
+//					case KeyEvent.VK_DOWN:
+//						setDown(true);
+//						break;
+//					}
+//				}
+//			});
 		} else {
 			setDown(false);
 		}
