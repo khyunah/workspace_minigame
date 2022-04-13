@@ -38,7 +38,7 @@ public class Player extends JLabel implements Moveable {
 	}
 
 	private void initBackgroundPlayerService() {
-		
+		new Thread(new BackgroundPlayerService(this)).start();
 	}
 
 	private void initObject() {

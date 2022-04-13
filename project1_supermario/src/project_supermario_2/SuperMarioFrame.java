@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 public class SuperMarioFrame extends JFrame {
 
-	Image image = new ImageIcon("images/marioBackgroundMap.gif").getImage();
+	Image image = new ImageIcon("images/backgroundMapService.png").getImage();
     Image changImg = image.getScaledInstance(7000, 500, Image.SCALE_SMOOTH);
     ImageIcon changIcon = new ImageIcon(changImg);
 	
