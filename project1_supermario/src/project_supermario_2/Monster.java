@@ -84,9 +84,6 @@ public class Monster extends JLabel {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					if (monsterX == player.getX()) {
-						System.out.println("===========");
-					}
 
 				}
 
