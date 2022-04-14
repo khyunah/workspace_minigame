@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 public class SuperMarioFrame extends JFrame {
 
-	Image image = new ImageIcon("images/backgroundMapService.png").getImage();
+	Image image = new ImageIcon("images/marioBackgroundMap.gif").getImage();
     Image changImg = image.getScaledInstance(7000, 500, Image.SCALE_SMOOTH);
     ImageIcon changIcon = new ImageIcon(changImg);
 	
@@ -63,8 +63,8 @@ public class SuperMarioFrame extends JFrame {
 					new Thread(new Runnable() {
 						@Override
 						public void run() {
-
-							for (int i = 0; i < 8; i++) {
+							
+							if(!player.isLeft() && !player.isLeftWallCrash()) {
 								bgMap.setLocation(pointX, pointY);
 								pointX++;
 								try {
@@ -76,7 +76,7 @@ public class SuperMarioFrame extends JFrame {
 							}
 						}
 					}).start();
-					if(!player.isLeft()) {
+					if(!player.isLeft() && !player.isLeftWallCrash()) {
 						player.left();
 					}
 					break;

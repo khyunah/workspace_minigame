@@ -19,7 +19,7 @@ public class BackgroundPlayerService implements Runnable {
 	public BackgroundPlayerService(Player player) {
 		this.player = player;
 		try {
-			bgImage = ImageIO.read(new File("images/backgroundMapService.png"));
+			bgImage = ImageIO.read(new File("images/backgroundMapService_sizeup.png"));
 		} catch (IOException e) {
 			System.out.println("파일이 없습니다.");
 		}
@@ -36,9 +36,14 @@ public class BackgroundPlayerService implements Runnable {
 	public void run() {
 		while(true) {
 			try {
+				System.out.println("-----------------백그라운드 맵 서비스 시작");
 				Color leftColor = new Color(bgImage.getRGB(player.getX(), player.getY()));
+				System.out.println(leftColor);
 				Color rightColor = new Color(bgImage.getRGB(player.getX() + playerRightX, player.getY()));
+				System.out.println(rightColor);
 				Color bottomColor = new Color(bgImage.getRGB(player.getX() + playerBottomX, player.getY() + playerBottomY));
+				System.out.println(bottomColor);
+				System.out.println("======================================");
 				
 				// 바닥 색상 확인
 				if(!(bottomColor.getRed() == 255 && bottomColor.getGreen() == 255 && bottomColor.getBlue() == 255)) {
@@ -60,7 +65,7 @@ public class BackgroundPlayerService implements Runnable {
 					player.setRight(false);
 				}
 			} catch (Exception e) {
-				
+				System.out.println("문제발생 ");
 			}
 		}
 		
