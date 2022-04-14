@@ -9,12 +9,15 @@ import javax.imageio.ImageIO;
 
 public class BackgroundPlayerService implements Runnable {
 
-	BufferedImage bgImage;
-	Player player;
+	private BufferedImage bgImage;
+	private Player player;
+	
+	private Item item;
 
-	int playerRightX;
-	int playerBottomX;
-	int playerBottomY;
+	private int playerRightX;
+	private int playerBottomX;
+	private int playerBottomY;
+	private final int TOP_X = 25;
 
 	public BackgroundPlayerService(Player player) {
 		this.player = player;
@@ -31,6 +34,19 @@ public class BackgroundPlayerService implements Runnable {
 		playerBottomX = 25;
 		playerBottomY = 60;
 	}
+	
+//	public void isTopCrashColor() {
+//		Color topColor = new Color(bgImage.getRGB(player.getX() + TOP_X, player.getY()));
+//		int red = color.getRed();
+//		int green = color.getGreen();
+//		int blue = color.getBlue();
+//
+//		// 머리가 파랑색 일때
+//		if (red == 0 && green == 0 && blue == 255) {
+//			player.setUp(false);
+//			item.setChrashCount(1);
+//		}
+//	}
 
 	@Override
 	public void run() {
@@ -43,6 +59,8 @@ public class BackgroundPlayerService implements Runnable {
 				System.out.println(rightColor);
 				Color bottomColor = new Color(bgImage.getRGB(player.getX() + playerBottomX, player.getY() + playerBottomY));
 				System.out.println(bottomColor);
+//				Color topColor = new Color(bgImage.getRGB(player.getX() + TOP_X, player.getY()));
+				
 				System.out.println("======================================");
 				
 				// 바닥 색상 확인
@@ -64,6 +82,15 @@ public class BackgroundPlayerService implements Runnable {
 					player.setRightWallCrash(true);
 					player.setRight(false);
 				}
+				
+//				// 머리위가 파랑색일때 
+//				if(!(bottomColor.getRed() == 0 && bottomColor.getGreen() == 0 && bottomColor.getBlue() == 255)) {
+//					player.setUp(false);
+//					item.setChrashCount(1);
+//				}
+				
+				
+
 			} catch (Exception e) {
 				System.out.println("문제발생 ");
 			}

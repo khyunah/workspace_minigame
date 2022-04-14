@@ -20,6 +20,10 @@ public class SuperMarioFrame extends JFrame {
 	private JLabel bgMap;
 	private Player player;
 
+	Item item;
+
+	Item itemBox;
+
 	int pointX = 0;
 	int pointY = 0;
 
@@ -33,6 +37,7 @@ public class SuperMarioFrame extends JFrame {
 		panel = new JPanel();
 		player = new Player();
 		bgMap = new JLabel(changIcon);
+		itemBox = new Item();
 
 		setSize(1500, 540);
 		setLocation(0, 0);
@@ -50,6 +55,7 @@ public class SuperMarioFrame extends JFrame {
 		panel.setLocation(0, 0);
 		setContentPane(panel);
 		bgMap.add(player);
+		bgMap.add(itemBox);
 	}
 
 	private void initListener() {
@@ -65,21 +71,24 @@ public class SuperMarioFrame extends JFrame {
 							@Override
 							public void run() {
 								for (int i = 0; i < 8; i++) {
-									bgMap.setLocation(pointX, pointY);
-									pointX++;
-									try {
-										Thread.sleep(10);
-									} catch (InterruptedException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
+									if(pointX <= 0) {
+										pointX++;
+										bgMap.setLocation(pointX, pointY);
+										try {
+											Thread.sleep(10);
+										} catch (InterruptedException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+										
 									}
 								}
 							}
 						}).start();
 					}
-						if (!player.isLeft()) {
-							player.left();
-						}
+					if (!player.isLeft()) {
+						player.left();
+					}
 					break;
 
 				case KeyEvent.VK_RIGHT:
@@ -89,8 +98,8 @@ public class SuperMarioFrame extends JFrame {
 							@Override
 							public void run() {
 								for (int i = 0; i < 8; i++) {
-									bgMap.setLocation(pointX, pointY);
 									pointX--;
+									bgMap.setLocation(pointX, pointY);
 									try {
 										Thread.sleep(10);
 									} catch (InterruptedException e) {
@@ -102,16 +111,28 @@ public class SuperMarioFrame extends JFrame {
 							}
 						}).start();
 					}
-						if (!player.isRight()) {
-							player.right();
-						}
+					if (!player.isRight() && !player.isRightWallCrash()) {
+						player.right();
+					}
 					break;
 
 				case KeyEvent.VK_UP:
 					System.out.println("위 쪽 방향키 눌림");
-					if(!player.isUp()) {
-						player.up();
-					}
+					new Thread(new Runnable() {
+
+						@Override
+						public void run() {
+							for (int i = 0; i < 7; i++) {
+								try {
+									Thread.sleep(10);
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+							player.up();
+						}
+					}).start();
 				}
 			}
 
