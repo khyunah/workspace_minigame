@@ -35,6 +35,10 @@ public class Player extends JLabel implements Moveable {
 	private ImageIcon playerL2;
 	private ImageIcon jumpR;
 	private ImageIcon jumpL;
+	
+	BackgroundMapService service;
+	Item item;
+	
 
 	public Player() {
 		initObject();
@@ -43,7 +47,7 @@ public class Player extends JLabel implements Moveable {
 	}
 
 	private void initBackgroundPlayerService() {
-		new Thread(new BackgroundPlayerService(this)).start();
+//		new Thread(new BackgroundPlayerService(this)).start();
 	}
 
 	private void initObject() {
@@ -54,11 +58,13 @@ public class Player extends JLabel implements Moveable {
 		jumpR = new ImageIcon("images/jump_right.png");
 		jumpL = new ImageIcon("images/jump_left.png");
 		player = playerR;
+		service = new BackgroundMapService(this);
+		item = new Item();
 	}
 
 	private void initSetting() {
 		x = 80;
-		y = 400;
+		y = 390;
 
 		left = false;
 		right = false;
@@ -80,10 +86,13 @@ public class Player extends JLabel implements Moveable {
 		System.out.println("left");
 
 		left = true;
+		service.checkLeftWall();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				while (left) {
+					service.checkLeftWall();
+					service.checkBottomColor();
 					player = playerL;
 					setIcon(player);
 					x = x - SPEED;
@@ -105,13 +114,15 @@ public class Player extends JLabel implements Moveable {
 	public void right() {
 		System.out.println("right");
 		right = true;
-
+		service.checkRightWall();
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 
 				while (right) {
+					service.checkRightWall();
+					service.checkBottomColor();
 					player = playerR;
 					setIcon(player);
 					x = x + SPEED;
@@ -137,6 +148,8 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				for (int i = 0; i < (130 / JUMPSPEED); i++) {
+					service.checkTopColor(item);
+					service.checkBottomColor();
 					System.out.println();
 					y = y - JUMPSPEED;
 					setLocation(x, y);
@@ -177,6 +190,7 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (down) {
+					service.checkBottomColor();
 					y = y + JUMPSPEED;
 					setLocation(x, y);
 					initSleep(3);

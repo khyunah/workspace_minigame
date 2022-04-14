@@ -14,9 +14,10 @@ public class BackgroundMapService{
 	private BufferedImage bgServiceImage;
 
 	private final int LEFT_X = 0;
-	private final int RIGHT_X = 100;
-	private final int BOTTOM_X = 50;
-	private final int BOTTOM_Y = 100;
+	private final int RIGHT_X = 50;
+	private final int BOTTOM_X = 25;
+	private final int BOTTOM_Y = 60;
+	private final int TOP_X = 25;
 	
 	private Player player;
 
@@ -32,7 +33,7 @@ public class BackgroundMapService{
 	private void initObject() {
 		isWin = false;
 		try {
-			bgServiceImage = ImageIO.read(new File("images/backgroundMapService.png"));
+			bgServiceImage = ImageIO.read(new File("images/backgroundMapService_sizeup.png"));
 		} catch (IOException e) {
 			System.out.println("파일이 없습니다.");
 		}
@@ -47,12 +48,17 @@ public class BackgroundMapService{
 		return isWallCrashColor(LEFT_X);
 	}
 
-	public boolean checkRightWall() {
-		return isWallCrashColor(RIGHT_X);
+	public void checkRightWall() {
+		player.setRightWallCrash(isWallCrashColor(RIGHT_X));
+		player.setLeft(false);
 	}
 
-	public void checkBottomColor(SuperMarioFrame marioFrame) {
-		isBottomCrashColor(marioFrame);
+	public void checkBottomColor() {
+		isBottomCrashColor();
+	}
+	
+	public void checkTopColor(Item item) {
+		isTopCrashColor(item);
 	}
 
 	/**
@@ -69,6 +75,7 @@ public class BackgroundMapService{
 
 		// 부딪히는 색상이 빨강색이거나 초록색일때 true
 		if (red == 255 && green == 0 && blue == 0 || red == 0 && green == 255 && blue == 0) {
+			System.out.println("true");
 			return true;
 			// 부딪히는 색상이 검정색일때 ( == 게임 마지막 성에 도착했을때 )
 		} else if (red == 0 && green == 0 && blue == 0) {
@@ -78,62 +85,34 @@ public class BackgroundMapService{
 		return false;
 	}
 
-	private void isBottomCrashColor(SuperMarioFrame marioFrame) {
+	private void isBottomCrashColor() {
 		Color color = new Color(bgServiceImage.getRGB(player.getX() + BOTTOM_X, player.getY() + BOTTOM_Y));
 		int red = color.getRed();
 		int green = color.getGreen();
 		int blue = color.getBlue();
 
-		// 바닥이 흰색 일때
-		if (red == 255 && green == 255 && blue == 255) {
-			player.setDown(true);
-		} else if (red == 0 && green == 255 && blue == 0) {
-			// player의 바닥 색상이 초록색 일때
+		// 바닥이 흰색 아닐때
+		if (!(red == 255 && green == 255 && blue == 255)) {
 			player.setDown(false);
-			marioFrame.addKeyListener(new KeyAdapter() {
-				@Override
-				public void keyPressed(KeyEvent e) {
-					switch (e.getKeyCode()) {
-					case KeyEvent.VK_DOWN:
-						player.setDown(true);
-						break;
-					}
-				}
-			});
-		} else {
-			player.setDown(false);
+		}else {
+			if (!player.isUp() && !player.isDown()) {
+				player.down();
+			}
 		}
 	}
 	
 	
-	private void isTopCrashColor(SuperMarioFrame marioFrame) {
-		Color color = new Color(bgServiceImage.getRGB(player.getX() + (BOTTOM_X/2), player.getY() + BOTTOM_Y));
+	private void isTopCrashColor(Item item) {
+		Color color = new Color(bgServiceImage.getRGB(player.getX() + TOP_X, player.getY()));
 		int red = color.getRed();
 		int green = color.getGreen();
 		int blue = color.getBlue();
 
-		// 바닥이 흰색 일때
+		// 머리가 파랑색 일때
 		if (red == 0 && green == 0 && blue == 255) {
-			player.setDown(true);
-		} else if (red == 0 && green == 255 && blue == 0) {
-			// player의 바닥 색상이 초록색 일때
-			player.setDown(false);
-			marioFrame.addKeyListener(new KeyAdapter() {
-				@Override
-				public void keyPressed(KeyEvent e) {
-					switch (e.getKeyCode()) {
-					case KeyEvent.VK_DOWN:
-						player.setDown(true);
-						break;
-					}
-				}
-			});
-		} else {
-			player.setDown(false);
+			player.setUp(false);
+			item.setChrashCount(1);
+			item.crashGetMoney();
 		}
 	}
-	
-	
-	
-	
 }

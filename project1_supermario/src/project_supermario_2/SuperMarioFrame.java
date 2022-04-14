@@ -23,6 +23,10 @@ public class SuperMarioFrame extends JFrame {
 	private Monster monster2;
 	private Monster monster3;
 
+	Item item;
+
+	Item itemBox;
+
 	int pointX = 0;
 	int pointY = 0;
 
@@ -39,6 +43,7 @@ public class SuperMarioFrame extends JFrame {
 		monster2 = new Monster(700,410);
 		monster3 = new Monster(1300,410);
 		bgMap = new JLabel(changIcon);
+		itemBox = new Item();
 
 		setSize(1500, 540);
 		setLocation(0, 0);
@@ -57,11 +62,8 @@ public class SuperMarioFrame extends JFrame {
 		panel.setLocation(0, 0);
 		setContentPane(panel);
 		bgMap.add(player);
+		bgMap.add(itemBox);
 		
-//		monster1.setLocation(120, 410);
-//		monster2.setLocation(700, 410);
-//		monster3.setLocation(760, 410);
-//		monster4.setLocation(1200, 410);
 		bgMap.add(monster1);
 		bgMap.add(monster2);
 		bgMap.add(monster3);
@@ -80,21 +82,24 @@ public class SuperMarioFrame extends JFrame {
 							@Override
 							public void run() {
 								for (int i = 0; i < 8; i++) {
-									bgMap.setLocation(pointX, pointY);
-									pointX++;
-									try {
-										Thread.sleep(10);
-									} catch (InterruptedException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
+									if(pointX <= 0) {
+										pointX++;
+										bgMap.setLocation(pointX, pointY);
+										try {
+											Thread.sleep(10);
+										} catch (InterruptedException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+										
 									}
 								}
 							}
 						}).start();
 					}
-						if (!player.isLeft()) {
-							player.left();
-						}
+					if (!player.isLeft()) {
+						player.left();
+					}
 					break;
 
 				case KeyEvent.VK_RIGHT:
@@ -104,8 +109,8 @@ public class SuperMarioFrame extends JFrame {
 							@Override
 							public void run() {
 								for (int i = 0; i < 8; i++) {
-									bgMap.setLocation(pointX, pointY);
 									pointX--;
+									bgMap.setLocation(pointX, pointY);
 									try {
 										Thread.sleep(10);
 									} catch (InterruptedException e) {
@@ -117,16 +122,28 @@ public class SuperMarioFrame extends JFrame {
 							}
 						}).start();
 					}
-						if (!player.isRight()) {
-							player.right();
-						}
+					if (!player.isRight() && !player.isRightWallCrash()) {
+						player.right();
+					}
 					break;
 
 				case KeyEvent.VK_UP:
 					System.out.println("위 쪽 방향키 눌림");
-					if(!player.isUp()) {
-						player.up();
-					}
+					new Thread(new Runnable() {
+
+						@Override
+						public void run() {
+							for (int i = 0; i < 7; i++) {
+								try {
+									Thread.sleep(10);
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+							player.up();
+						}
+					}).start();
 				}
 			}
 
