@@ -29,7 +29,7 @@ public class BackgroundPlayerService implements Runnable {
 	private void initSetting() {
 		playerRightX = 50;
 		playerBottomX = 25;
-		playerBottomY = 50;
+		playerBottomY = 60;
 	}
 
 	@Override
