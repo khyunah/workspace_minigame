@@ -86,7 +86,6 @@ public class Player extends JLabel implements Moveable {
 		System.out.println("left");
 
 		left = true;
-		service.checkLeftWall();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -114,7 +113,6 @@ public class Player extends JLabel implements Moveable {
 	public void right() {
 		System.out.println("right");
 		right = true;
-		service.checkRightWall();
 		new Thread(new Runnable() {
 
 			@Override

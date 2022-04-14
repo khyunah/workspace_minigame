@@ -97,7 +97,7 @@ public class SuperMarioFrame extends JFrame {
 							}
 						}).start();
 					}
-					if (!player.isLeft()) {
+					if (!player.isLeft() && !player.isLeftWallCrash()) {
 						player.left();
 					}
 					break;

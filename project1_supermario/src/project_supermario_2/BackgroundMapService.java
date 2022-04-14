@@ -44,13 +44,14 @@ public class BackgroundMapService{
 	 * 
 	 * @return
 	 */
-	public boolean checkLeftWall() {
-		return isWallCrashColor(LEFT_X);
+	public void checkLeftWall() {
+		player.setLeftWallCrash(isWallCrashColor(LEFT_X));
+		player.setLeft(false);
 	}
 
 	public void checkRightWall() {
 		player.setRightWallCrash(isWallCrashColor(RIGHT_X));
-		player.setLeft(false);
+		player.setRight(false);
 	}
 
 	public void checkBottomColor() {
