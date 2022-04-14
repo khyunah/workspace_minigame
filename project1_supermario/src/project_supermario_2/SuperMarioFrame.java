@@ -19,6 +19,10 @@ public class SuperMarioFrame extends JFrame {
 
 	private JLabel bgMap;
 	private Player player;
+	private Monster monster1;
+	private Monster monster2;
+	private Monster monster3;
+	private Monster monster4;
 
 	int pointX = 0;
 	int pointY = 0;
@@ -32,6 +36,10 @@ public class SuperMarioFrame extends JFrame {
 	private void initData() {
 		panel = new JPanel();
 		player = new Player();
+		monster1 = new Monster(120,410);
+		monster2 = new Monster(700,410);
+		monster3 = new Monster(760,410);
+		monster4 = new Monster(1200,410);
 		bgMap = new JLabel(changIcon);
 
 		setSize(1500, 540);
@@ -40,6 +48,7 @@ public class SuperMarioFrame extends JFrame {
 		setResizable(true);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 	}
 
 	private void setInitLayout() {
@@ -50,6 +59,15 @@ public class SuperMarioFrame extends JFrame {
 		panel.setLocation(0, 0);
 		setContentPane(panel);
 		bgMap.add(player);
+		
+//		monster1.setLocation(120, 410);
+//		monster2.setLocation(700, 410);
+//		monster3.setLocation(760, 410);
+//		monster4.setLocation(1200, 410);
+		bgMap.add(monster1);
+		bgMap.add(monster2);
+		bgMap.add(monster3);
+		bgMap.add(monster4);
 	}
 
 	private void initListener() {
