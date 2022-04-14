@@ -15,11 +15,12 @@ public class Monster extends JLabel {
 
 	private boolean leftCrash;
 	private boolean rightCrash;
-	
+
 	boolean direction;
 
 	private ImageIcon enemyL;
 	private ImageIcon enemyR;
+	Player player;
 
 	public Monster(int monsterX, int monsterY) {
 		this.monsterX = monsterX;
@@ -46,9 +47,9 @@ public class Monster extends JLabel {
 
 		leftCrash = false;
 		rightCrash = false;
-		
+
 		direction = true;
-		
+
 		setIcon(enemyL);
 		setSize(30, 30);
 		setLocation(monsterX, monsterY);
@@ -62,28 +63,33 @@ public class Monster extends JLabel {
 			public void run() {
 				while (true) {
 					setIcon(enemyL);
-					if (direction) {
-						monsterX = monsterX + 10;
-						setLocation(monsterX, monsterY);
-					} else {
-						monsterX = monsterX - 10;
-						setLocation(monsterX, monsterY);
-					}
 					if (leftCrash) {
 						direction = true;
-						setIcon(enemyR);
 					}
 					if (rightCrash) {
 						direction = false;
+					}
+					if (direction) {
+						monsterX = monsterX + 10;
+						setLocation(monsterX, monsterY);
+						setIcon(enemyR);
+					} else {
+						monsterX = monsterX - 10;
+						setLocation(monsterX, monsterY);
 						setIcon(enemyL);
+
 					}
 					try {
 						Thread.sleep(100);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
+					if (monsterX == player.getX()) {
+						System.out.println("===========");
+					}
 
 				}
+
 			}
 		}).start();
 	}
