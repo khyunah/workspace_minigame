@@ -27,7 +27,7 @@ public class Player extends JLabel implements Moveable {
 	// 벽에 충돌한 상태
 	private boolean leftWallCrash;
 	private boolean rightWallCrash;
-	
+
 	private ImageIcon player;
 	private ImageIcon playerR;
 	private ImageIcon playerL;
@@ -107,7 +107,7 @@ public class Player extends JLabel implements Moveable {
 
 			}
 		}).start();
-		
+
 	}
 
 	@Override
@@ -154,16 +154,28 @@ public class Player extends JLabel implements Moveable {
 					y = y - JUMPSPEED;
 					setLocation(x, y);
 					initSleep(10);
-					if(player.getDescription() == ("images/mario_left.png") || player.getDescription() == ("images/mario1_left.png")) {
+					if (player.getDescription() == ("images/mario_left.png")
+							|| player.getDescription() == ("images/mario1_left.png")) {
 						player = jumpL;
-						setIcon(player);						
-					} else if(player.getDescription() == ("images/mario_right.png") || player.getDescription() == ("images/mario1_right.png")){
+						setIcon(player);
+					} else if (player.getDescription() == ("images/mario_right.png")
+							|| player.getDescription() == ("images/mario1_right.png")) {
 						player = jumpR;
 						setIcon(player);
+
 					} else {
 						System.out.println("이미지 없음");
 					}
+
 				}
+				if (player.getDescription() == "images/jump_left.png") {
+					player = playerL;
+					setIcon(player);
+				} else if (player.getDescription() == "images/jump_right.png") {
+					player = playerR;
+					setIcon(player);
+				}
+
 				up = false;
 				down();
 			}
@@ -187,7 +199,6 @@ public class Player extends JLabel implements Moveable {
 			}
 		}).start();
 	}
-	
 
 	public void initSleep(int sleepNum) {
 		try {
