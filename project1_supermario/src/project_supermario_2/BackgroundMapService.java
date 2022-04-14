@@ -104,4 +104,36 @@ public class BackgroundMapService{
 			player.setDown(false);
 		}
 	}
+	
+	
+	private void isTopCrashColor(SuperMarioFrame marioFrame) {
+		Color color = new Color(bgServiceImage.getRGB(player.getX() + (BOTTOM_X/2), player.getY() + BOTTOM_Y));
+		int red = color.getRed();
+		int green = color.getGreen();
+		int blue = color.getBlue();
+
+		// 바닥이 흰색 일때
+		if (red == 0 && green == 0 && blue == 255) {
+			player.setDown(true);
+		} else if (red == 0 && green == 255 && blue == 0) {
+			// player의 바닥 색상이 초록색 일때
+			player.setDown(false);
+			marioFrame.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					switch (e.getKeyCode()) {
+					case KeyEvent.VK_DOWN:
+						player.setDown(true);
+						break;
+					}
+				}
+			});
+		} else {
+			player.setDown(false);
+		}
+	}
+	
+	
+	
+	
 }
