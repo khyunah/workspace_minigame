@@ -144,9 +144,11 @@ public class Player extends JLabel implements Moveable {
 					if(player.getDescription() == ("images/mario_left.png") || player.getDescription() == ("images/mario1_left.png")) {
 						player = jumpL;
 						setIcon(player);						
-					} else {
+					} else if(player.getDescription() == ("images/mario_right.png") || player.getDescription() == ("images/mario1_right.png")){
 						player = jumpR;
 						setIcon(player);
+					} else {
+						System.out.println("이미지 없음");
 					}
 				}
 				
