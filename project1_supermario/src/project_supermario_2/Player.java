@@ -151,7 +151,6 @@ public class Player extends JLabel implements Moveable {
 						System.out.println("이미지 없음");
 					}
 				}
-				
 				up = false;
 				down();
 			}
