@@ -59,7 +59,7 @@ public class Player extends JLabel implements Moveable {
 		rightWallCrash = false;
 
 		setIcon(playerR);
-		setSize(50, 50);
+		setSize(50, 60);
 		setLocation(x, y);
 
 	}
