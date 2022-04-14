@@ -57,6 +57,7 @@ public class SuperMarioFrame extends JFrame {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
+//				System.out.println(player.getIcon());
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_LEFT:
 					System.out.println("왼쪽 방향키 눌림");
@@ -106,21 +107,8 @@ public class SuperMarioFrame extends JFrame {
 					
 				case KeyEvent.VK_UP:
 					System.out.println("위 쪽 방향키 눌림");
-					new Thread(new Runnable() {
-						
-						@Override
-						public void run() {
-							for (int i = 0; i < 7; i++) {
-								try {
-									Thread.sleep(10);
-								} catch (InterruptedException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-							}
-							player.up();
-						}
-					}).start();
+					player.up();
+					
 				}
 			}
 

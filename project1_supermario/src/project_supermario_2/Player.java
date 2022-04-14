@@ -21,15 +21,20 @@ public class Player extends JLabel implements Moveable {
 	private boolean down;
 
 	// 플레이어 속도 상태
-	private final int SPEED = 4;
+	private final int SPEED = 8;
 	private final int JUMPSPEED = 3;
 
 	// 벽에 충돌한 상태
 	private boolean leftWallCrash;
 	private boolean rightWallCrash;
-
+	
+	private ImageIcon player;
 	private ImageIcon playerR;
 	private ImageIcon playerL;
+	private ImageIcon playerR2;
+	private ImageIcon playerL2;
+	private ImageIcon jumpR;
+	private ImageIcon jumpL;
 
 	public Player() {
 		initObject();
@@ -42,8 +47,13 @@ public class Player extends JLabel implements Moveable {
 	}
 
 	private void initObject() {
-		playerR = new ImageIcon("images/mario1_right.png");
-		playerL = new ImageIcon("images/mario1_left.png");
+		playerR = new ImageIcon("images/mario_right.png");
+		playerL = new ImageIcon("images/mario_left.png");
+		playerR2 = new ImageIcon("images/mario1_right.png");
+		playerL2 = new ImageIcon("images/mario1_left.png");
+		jumpR = new ImageIcon("images/jump_right.png");
+		jumpL = new ImageIcon("images/jump_left.png");
+		player = playerR;
 	}
 
 	private void initSetting() {
@@ -58,17 +68,12 @@ public class Player extends JLabel implements Moveable {
 		leftWallCrash = false;
 		rightWallCrash = false;
 
-		setIcon(playerR);
-		setSize(50, 50);
+		setIcon(player);
+		setSize(50, 60);
 		setLocation(x, y);
 
 	}
 
-	
-	
-	
-	
-	
 	// 이벤트 핸들러
 	@Override
 	public void left() {
@@ -79,18 +84,21 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (left) {
-					setIcon(playerL);
+					player = playerL;
+					setIcon(player);
 					x = x - SPEED;
 					setLocation(x, y);
-					try {
-						Thread.sleep(10);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					} // 0.01초
-
+					initSleep(10);
+					player = playerL2;
+					setIcon(player);
+					x = x - SPEED;
+					setLocation(x, y);
+					initSleep(40);
 				}
+
 			}
 		}).start();
+		
 	}
 
 	@Override
@@ -104,15 +112,16 @@ public class Player extends JLabel implements Moveable {
 			public void run() {
 
 				while (right) {
-					setIcon(playerR);
+					player = playerR;
+					setIcon(player);
 					x = x + SPEED;
 					setLocation(x, y);
-					try {
-						Thread.sleep(10);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					initSleep(10);
+					player = playerR2;
+					setIcon(player);
+					x = x + SPEED;
+					setLocation(x, y);
+					initSleep(40);
 				}
 			}
 		}).start();
@@ -128,14 +137,19 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				for (int i = 0; i < (130 / JUMPSPEED); i++) {
+					System.out.println();
 					y = y - JUMPSPEED;
 					setLocation(x, y);
-					try {
-						Thread.sleep(10);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
+					initSleep(10);
+					if(player.getDescription() == ("images/mario_left.png") || player.getDescription() == ("images/mario1_left.png")) {
+						player = jumpL;
+						setIcon(player);						
+					} else {
+						player = jumpR;
+						setIcon(player);
 					}
 				}
+				
 				up = false;
 				down();
 			}
@@ -152,15 +166,20 @@ public class Player extends JLabel implements Moveable {
 				while (down) {
 					y = y + JUMPSPEED;
 					setLocation(x, y);
-					try {
-						Thread.sleep(3);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
+					initSleep(3);
 				}
 				down = false;
 			}
 		}).start();
+	}
+	
+
+	public void initSleep(int sleepNum) {
+		try {
+			Thread.sleep(sleepNum);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
