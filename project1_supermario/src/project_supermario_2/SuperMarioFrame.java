@@ -64,8 +64,8 @@ public class SuperMarioFrame extends JFrame {
 		bgMap.add(player);
 		bgMap.add(itemBox);
 		
-//		bgMap.add(monster1);
-//		bgMap.add(monster2);
+		bgMap.add(monster1);
+		bgMap.add(monster2);
 		bgMap.add(monster3);
 	}
 

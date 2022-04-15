@@ -66,7 +66,7 @@ public class Monster extends JLabel {
 			public void run() {
 				setIcon(enemy);
 				while (true) {
-					System.out.println(leftCrash);
+//					System.out.println(leftCrash);
 					if (leftCrash) {
 						direction = true;
 					} 
@@ -97,7 +97,7 @@ public class Monster extends JLabel {
 	}
 
 //	private void playerCrash() {
-//		if(player.getX() - monsterX < +-30 && player.getY() - monsterY < +- 30) {
+//		if(player.getX() - monsterX < 30 && player.getY() - monsterY < 30) {
 //			System.out.println("게임 종료");
 //		}
 //	}
