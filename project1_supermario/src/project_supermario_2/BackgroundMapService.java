@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class BackgroundMapService{
+public class BackgroundMapService {
 
 	private BufferedImage bgServiceImage;
 
@@ -18,7 +18,7 @@ public class BackgroundMapService{
 	private final int BOTTOM_X = 25;
 	private final int BOTTOM_Y = 60;
 	private final int TOP_X = 25;
-	
+
 	private Player player;
 
 	// 성에 도착했을때 true
@@ -33,7 +33,7 @@ public class BackgroundMapService{
 	private void initObject() {
 		isWin = false;
 		try {
-			bgServiceImage = ImageIO.read(new File("images/backgroundMapService_sizeup.png"));
+			bgServiceImage = ImageIO.read(new File("images/MapService.png"));
 		} catch (IOException e) {
 			System.out.println("파일이 없습니다.");
 		}
@@ -59,7 +59,7 @@ public class BackgroundMapService{
 	public void checkBottomColor() {
 		isBottomCrashColor();
 	}
-	
+
 	public void checkTopColor(Item item) {
 		isTopCrashColor(item);
 	}
@@ -97,14 +97,13 @@ public class BackgroundMapService{
 		// 바닥이 흰색 아닐때
 		if (!(red == 255 && green == 255 && blue == 255)) {
 			player.setDown(false);
-		}else {
+		} else {
 			if (!player.isUp() && !player.isDown()) {
 				player.down();
 			}
 		}
 	}
-	
-	
+
 	private void isTopCrashColor(Item item) {
 		Color color = new Color(bgServiceImage.getRGB(player.getX() + TOP_X, player.getY()));
 		int red = color.getRed();
@@ -114,7 +113,7 @@ public class BackgroundMapService{
 		// 머리가 파랑색 일때
 		if (red == 0 && green == 0 && blue == 255) {
 			player.setUp(false);
-			item.setChrashCount(1);
+			item.setCrashCount(1);
 			item.crashGetMoney();
 		}
 	}

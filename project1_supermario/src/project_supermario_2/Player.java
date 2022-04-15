@@ -35,6 +35,8 @@ public class Player extends JLabel implements Moveable {
 	private ImageIcon playerL2;
 	private ImageIcon jumpR;
 	private ImageIcon jumpL;
+	
+	private int crashCount;
 
 	BackgroundMapService service;
 	Item item;
@@ -64,6 +66,8 @@ public class Player extends JLabel implements Moveable {
 	private void initSetting() {
 		x = 80;
 		y = 390;
+		
+		crashCount = 0;
 
 		left = false;
 		right = false;
@@ -207,6 +211,11 @@ public class Player extends JLabel implements Moveable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public int iscrashCount() {
+		
+		return crashCount;
 	}
 
 }
