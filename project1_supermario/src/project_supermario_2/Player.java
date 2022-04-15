@@ -21,7 +21,7 @@ public class Player extends JLabel implements Moveable {
 	private boolean down;
 
 	// 플레이어 속도 상태
-	private final int SPEED = 8;
+	private final int SPEED = 15;
 	private final int JUMPSPEED = 3;
 
 	// 벽에 충돌한 상태
@@ -35,10 +35,9 @@ public class Player extends JLabel implements Moveable {
 	private ImageIcon playerL2;
 	private ImageIcon jumpR;
 	private ImageIcon jumpL;
-	
+
 	BackgroundMapService service;
 	Item item;
-	
 
 	public Player() {
 		initObject();
@@ -90,18 +89,20 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (left) {
-					service.checkLeftWall();
-					service.checkBottomColor();
-					player = playerL;
-					setIcon(player);
-					x = x - SPEED;
-					setLocation(x, y);
-					initSleep(10);
-					player = playerL2;
-					setIcon(player);
-					x = x - SPEED;
-					setLocation(x, y);
-					initSleep(40);
+					if (!service.checkLeftWall()) {
+						service.checkLeftWall();
+						service.checkBottomColor();
+						player = playerL;
+						setIcon(player);
+						x = x - SPEED;
+						setLocation(x, y);
+						initSleep(10);
+						player = playerL2;
+						setIcon(player);
+						x = x - SPEED;
+						setLocation(x, y);
+						initSleep(40);
+					}
 				}
 
 			}
@@ -119,18 +120,20 @@ public class Player extends JLabel implements Moveable {
 			public void run() {
 
 				while (right) {
-					service.checkRightWall();
-					service.checkBottomColor();
-					player = playerR;
-					setIcon(player);
-					x = x + SPEED;
-					setLocation(x, y);
-					initSleep(10);
-					player = playerR2;
-					setIcon(player);
-					x = x + SPEED;
-					setLocation(x, y);
-					initSleep(40);
+					if (!service.checkRightWall()) {
+						service.checkRightWall();
+						service.checkBottomColor();
+						player = playerR;
+						setIcon(player);
+						x = x + SPEED;
+						setLocation(x, y);
+						initSleep(10);
+						player = playerR2;
+						setIcon(player);
+						x = x + SPEED;
+						setLocation(x, y);
+						initSleep(40);
+					}
 				}
 			}
 		}).start();

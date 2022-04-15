@@ -41,7 +41,7 @@ public class SuperMarioFrame extends JFrame {
 		player = new Player();
 		monster1 = new Monster(200,410);
 		monster2 = new Monster(700,410);
-		monster3 = new Monster(1300,410);
+		monster3 = new Monster(1200,410);
 		bgMap = new JLabel(changIcon);
 		itemBox = new Item();
 
@@ -64,8 +64,8 @@ public class SuperMarioFrame extends JFrame {
 		bgMap.add(player);
 		bgMap.add(itemBox);
 		
-		bgMap.add(monster1);
-		bgMap.add(monster2);
+//		bgMap.add(monster1);
+//		bgMap.add(monster2);
 		bgMap.add(monster3);
 	}
 
@@ -77,7 +77,7 @@ public class SuperMarioFrame extends JFrame {
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_LEFT:
 					System.out.println("왼쪽 방향키 눌림");
-					if (!player.isLeftWallCrash()) {
+					if (!player.service.checkLeftWall()) {
 						new Thread(new Runnable() {
 							@Override
 							public void run() {

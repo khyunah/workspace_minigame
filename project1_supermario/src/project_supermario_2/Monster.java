@@ -21,6 +21,7 @@ public class Monster extends JLabel {
 	private ImageIcon enemyL;
 	private ImageIcon enemyR;
 	Player player;
+	private BackgroundMapService mapStervice;
 
 	public Monster(int monsterX, int monsterY) {
 		this.monsterX = monsterX;
@@ -74,14 +75,16 @@ public class Monster extends JLabel {
 						setLocation(monsterX, monsterY);
 //						System.out.println("몬스터 좌표값" + monsterX +"-" + monsterY);
 						setIcon(enemyR);
+//						playerCrash();
 					} else {
 						monsterX = monsterX - 10;
 						setLocation(monsterX, monsterY);
 						setIcon(enemyL);
+//						playerCrash();
 
 					}
 					try {
-						Thread.sleep(200);
+						Thread.sleep(300);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -91,5 +94,11 @@ public class Monster extends JLabel {
 			}
 		}).start();
 	}
+
+//	private void playerCrash() {
+//		if(player.getX() - monsterX < +-30 && player.getY() - monsterY < +- 30) {
+//			System.out.println("게임 종료");
+//		}
+//	}
 
 }
