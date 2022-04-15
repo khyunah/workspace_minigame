@@ -39,7 +39,7 @@ public class SuperMarioFrame extends JFrame {
 		player = new Player();
 		monster1 = new Monster(200,410);
 		monster2 = new Monster(700,410);
-		monster3 = new Monster(1300,410);
+		monster3 = new Monster(1100,410);
 		bgMap = new JLabel(changIcon);
 		itemBox = new Item(player);
 
@@ -62,8 +62,8 @@ public class SuperMarioFrame extends JFrame {
 		bgMap.add(player);
 		bgMap.add(itemBox);
 		
-		bgMap.add(monster1);
-		bgMap.add(monster2);
+//		bgMap.add(monster1);
+//		bgMap.add(monster2);
 		bgMap.add(monster3);
 	}
 
@@ -80,7 +80,7 @@ public class SuperMarioFrame extends JFrame {
 							public void run() {
 								for (int i = 0; i < 8; i++) {
 									if(pointX <= 0) {
-										pointX++;
+										pointX = pointX + 3;
 										bgMap.setLocation(pointX, pointY);
 										try {
 											Thread.sleep(10);
@@ -103,12 +103,16 @@ public class SuperMarioFrame extends JFrame {
 							@Override
 							public void run() {
 								for (int i = 0; i < 8; i++) {
-									pointX--;
-									bgMap.setLocation(pointX, pointY);
-									try {
-										Thread.sleep(10);
-									} catch (InterruptedException e) {
-										e.printStackTrace();
+									if(pointX + 7000 >= 1500) {
+										pointX = pointX -3;
+										bgMap.setLocation(pointX, pointY);
+										try {
+											Thread.sleep(10);
+										} catch (InterruptedException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+										
 									}
 								}
 							}

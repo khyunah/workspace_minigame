@@ -16,19 +16,21 @@ public class Monster extends JLabel {
 	private boolean leftCrash;
 	private boolean rightCrash;
 
-	boolean direction;
+	
 
 	private ImageIcon enemyL;
 	private ImageIcon enemyR;
+	private ImageIcon enemy;
 	Player player;
+	private BackgroundMapService mapStervice;
 
 	public Monster(int monsterX, int monsterY) {
 		this.monsterX = monsterX;
 		this.monsterY = monsterY;
+		initBackgroundMonsterService();
 		initObject();
 		initSetting();
 		addEventListener();
-		initBackgroundMonsterService();
 	}
 
 	private void initBackgroundMonsterService() {
@@ -38,57 +40,66 @@ public class Monster extends JLabel {
 	private void initObject() {
 		enemyL = new ImageIcon("images/enemy_left.png");
 		enemyR = new ImageIcon("images/enemy_right.png");
-
+		enemy = enemyR;
+		player = new Player();
 	}
 
 	private void initSetting() {
 //		monsterX = 0;
 //		monsterY = 0;
 
-		leftCrash = false;
-		rightCrash = false;
-
-		direction = true;
-
-		setIcon(enemyL);
+		setIcon(enemyR);
 		setSize(30, 30);
 		setLocation(monsterX, monsterY);
+		
+		leftCrash = false;
+		rightCrash = false;
 
 	}
 
 	private void addEventListener() {
+		setIcon(enemy);
 		new Thread(new Runnable() {
+			boolean direction;
 
 			@Override
 			public void run() {
+				setIcon(enemy);
 				while (true) {
-					setIcon(enemyL);
+					System.out.println(leftCrash);
 					if (leftCrash) {
 						direction = true;
-					}
+					} 
 					if (rightCrash) {
 						direction = false;
 					}
 					if (direction) {
+						setIcon(enemyR);
 						monsterX = monsterX + 10;
 						setLocation(monsterX, monsterY);
-						setIcon(enemyR);
+//						playerCrash();
 					} else {
+						setIcon(enemyL);
 						monsterX = monsterX - 10;
 						setLocation(monsterX, monsterY);
-						setIcon(enemyL);
-
+//						playerCrash();
+						
 					}
 					try {
-						Thread.sleep(100);
+						Thread.sleep(300);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-
 				}
-
 			}
+			
 		}).start();
 	}
+
+//	private void playerCrash() {
+//		if(player.getX() - monsterX < +-30 && player.getY() - monsterY < +- 30) {
+//			System.out.println("게임 종료");
+//		}
+//	}
 
 }
