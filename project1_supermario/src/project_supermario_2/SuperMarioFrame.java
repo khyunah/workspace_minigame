@@ -77,7 +77,7 @@ public class SuperMarioFrame extends JFrame {
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_LEFT:
 					System.out.println("왼쪽 방향키 눌림");
-					if (!player.isLeftWallCrash()) {
+					if (!player.service.checkLeftWall()) {
 						new Thread(new Runnable() {
 							@Override
 							public void run() {
