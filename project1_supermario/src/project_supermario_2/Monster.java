@@ -62,7 +62,7 @@ public class Monster extends JLabel {
 			@Override
 			public void run() {
 				while (true) {
-					setIcon(enemyL);
+//					setIcon(enemyL);
 					if (leftCrash) {
 						direction = true;
 					}
@@ -72,6 +72,7 @@ public class Monster extends JLabel {
 					if (direction) {
 						monsterX = monsterX + 10;
 						setLocation(monsterX, monsterY);
+//						System.out.println("몬스터 좌표값" + monsterX +"-" + monsterY);
 						setIcon(enemyR);
 					} else {
 						monsterX = monsterX - 10;
@@ -80,7 +81,7 @@ public class Monster extends JLabel {
 
 					}
 					try {
-						Thread.sleep(100);
+						Thread.sleep(200);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}

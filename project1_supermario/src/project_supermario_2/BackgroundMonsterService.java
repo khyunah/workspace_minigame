@@ -36,9 +36,9 @@ public class BackgroundMonsterService implements Runnable {
 		while (true) {
 			try {
 				Color monsterLC = new Color(bgImage.getRGB(monster.getMonsterX(), monster.getMonsterY()));
-				System.out.println(monsterLC);
+//				System.out.println("몬스터 좌표 색상: " + monsterLC);
 				Color monsterRC = new Color(bgImage.getRGB(monster.getMonsterX() + 30, monster.getMonsterY()));
-				System.out.println(monsterRC);
+//				System.out.println("몬스터 좌표 색상: " + monsterRC);
 
 				if ((monsterLC.getRed() == 255 && monsterLC.getGreen() == 0 && monsterLC.getBlue() == 0)
 						|| (monsterLC.getRed() == 0 && monsterLC.getGreen() == 255 && monsterLC.getBlue() == 0)) {

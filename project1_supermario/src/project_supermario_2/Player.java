@@ -148,7 +148,7 @@ public class Player extends JLabel implements Moveable {
 				for (int i = 0; i < (130 / JUMPSPEED); i++) {
 					service.checkTopColor(item);
 					service.checkBottomColor();
-					System.out.println();
+//					System.out.println();
 					y = y - JUMPSPEED;
 					setLocation(x, y);
 					initSleep(10);
