@@ -47,27 +47,27 @@ public class Item extends JLabel {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-//			for (int i = 0; i < 10; i++) {
+			for (int i = 0; i < 10; i++) {
 				setIcon(itemMoney);
-//				setLocation(695, 305 - (i * 5));
-//				try {
-//					Thread.sleep(100);
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//			removeBox();
+
+				setLocation(695, 305 - (i * 5));
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			removeBox();
 		}
 		player.setCrashOk(false);
 	}
-	
-//	public void removeBox() {
-//		try {
-//			Thread.sleep(1000);
-//			setIcon(box);
-//			itemContext = null;
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	public void removeBox() {
+		try {
+			Thread.sleep(1000);
+			setIcon(null);
+			itemContext = null;
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 }

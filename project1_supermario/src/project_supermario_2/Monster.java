@@ -21,6 +21,7 @@ public class Monster extends JLabel {
 	private ImageIcon enemy;
 	Player player;
 	private BackgroundMapService mapStervice;
+	private SuperMarioFrame mContext;
 
 	public Monster(int monsterX, int monsterY) {
 		this.monsterX = monsterX;
@@ -39,12 +40,9 @@ public class Monster extends JLabel {
 		enemyL = new ImageIcon("images/enemy_left.png");
 		enemyR = new ImageIcon("images/enemy_right.png");
 		enemy = enemyR;
-		player = new Player();
 	}
 
 	private void initSetting() {
-//		monsterX = 0;
-//		monsterY = 0;
 
 		setIcon(enemyR);
 		setSize(30, 30);
@@ -64,7 +62,6 @@ public class Monster extends JLabel {
 			public void run() {
 				setIcon(enemy);
 				while (true) {
-//					System.out.println(leftCrash);
 					if (leftCrash) {
 						direction = true;
 					}
@@ -75,12 +72,12 @@ public class Monster extends JLabel {
 						setIcon(enemyR);
 						monsterX = monsterX + 10;
 						setLocation(monsterX, monsterY);
-						playerCrash();
+//						playerCrash();
 					} else {
 						setIcon(enemyL);
 						monsterX = monsterX - 10;
 						setLocation(monsterX, monsterY);
-						playerCrash();
+//						playerCrash();
 
 					}
 					try {
@@ -97,6 +94,7 @@ public class Monster extends JLabel {
 	public boolean playerCrash() {
 		if (player.getX() - monsterX < 30 && monsterX - player.getX() < 30 && player.getY() - monsterY < 50) {
 			System.out.println("게임 종료");
+			
 			return true;
 		}
 		return false;
