@@ -92,6 +92,7 @@ public class BackgroundMapService {
 		int red = color.getRed();
 		int green = color.getGreen();
 		int blue = color.getBlue();
+		
 
 		// 바닥이 흰색 아닐때
 		if (!(red == 255 && green == 255 && blue == 255)) {
@@ -99,6 +100,7 @@ public class BackgroundMapService {
 		} else {
 			if (!player.isUp() && !player.isDown()) {
 				player.down();
+				System.out.println(red +"-" + green +"-"+ blue);
 			}
 		}
 	}

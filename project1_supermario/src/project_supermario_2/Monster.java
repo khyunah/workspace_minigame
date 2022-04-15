@@ -15,7 +15,6 @@ public class Monster extends JLabel {
 
 	private boolean leftCrash;
 	private boolean rightCrash;
-	private boolean attacked;
 
 	private ImageIcon enemyL;
 	private ImageIcon enemyR;
@@ -53,7 +52,6 @@ public class Monster extends JLabel {
 
 		leftCrash = false;
 		rightCrash = false;
-		attacked = false;
 
 	}
 
@@ -100,8 +98,9 @@ public class Monster extends JLabel {
 	private boolean playerCrash() {
 		if (player.getX() - monsterX < 30 && monsterX - player.getX() < 30 && player.getY() - monsterY < 50) {
 			System.out.println("게임 종료");
+			return true;
 		}
-		return attacked = true;
+		return false;
 	}
 
 }
