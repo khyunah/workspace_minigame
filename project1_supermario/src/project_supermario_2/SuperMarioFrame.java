@@ -23,7 +23,8 @@ public class SuperMarioFrame extends JFrame {
 	private Monster monster2;
 	private Monster monster3;
 
-	private Item itemBox;
+	private Item itemBox1;
+	private Item itemBox2;
 
 	int pointX = 0;
 	int pointY = 0;
@@ -49,7 +50,7 @@ public class SuperMarioFrame extends JFrame {
 		monster2 = new Monster(700, 410);
 		monster3 = new Monster(1100, 410);
 		bgMap = new JLabel(changIcon);
-		itemBox = new Item(player);
+		itemBox1 = new Item(player);
 
 		setSize(1500, 540);
 		setLocation(0, 0);
@@ -61,14 +62,12 @@ public class SuperMarioFrame extends JFrame {
 	}
 
 	private void setInitLayout() {
-		panel.setLocation(0, 0);
 		bgMap.setLocation(0, 0);
-		bgMap.setHorizontalAlignment(JLabel.LEFT);
 		panel.add(bgMap);
-		panel.setLocation(0, 0);
 		setContentPane(panel);
+		
 		bgMap.add(player);
-		bgMap.add(itemBox);
+		bgMap.add(itemBox1);
 
 		bgMap.add(monster1);
 		bgMap.add(monster2);
@@ -97,7 +96,7 @@ public class SuperMarioFrame extends JFrame {
 							@Override
 							public void run() {
 								for (int i = 0; i < 8; i++) {
-									if (pointX <= -20) {
+									if (pointX <= 0) {
 										pointX = pointX + 3;
 										bgMap.setLocation(pointX, pointY);
 										try {
@@ -156,8 +155,8 @@ public class SuperMarioFrame extends JFrame {
 							if (!player.isUp() && !player.isDown()) {
 								player.up();
 							}
-							if (player.crashOk) {
-								itemBox.crashGetMoney();
+							if (player.isCrashOk()) {
+								itemBox1.crashGetMoney();
 							}
 						}
 					}).start();

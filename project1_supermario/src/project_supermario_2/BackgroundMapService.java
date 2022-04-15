@@ -12,6 +12,7 @@ public class BackgroundMapService {
 	private BufferedImage bgServiceImage;
 
 	private final int LEFT_X = 0;
+	private final int LEFT_Y = 55;
 	private final int RIGHT_X = 50;
 	private final int BOTTOM_X = 25;
 	private final int BOTTOM_Y = 60;
@@ -72,7 +73,7 @@ public class BackgroundMapService {
 	 */
 	private boolean isWallCrashColor(int correctionXPoint) {
 		try {
-			Color color = new Color(bgServiceImage.getRGB(player.getX() + correctionXPoint, player.getY()));
+			Color color = new Color(bgServiceImage.getRGB(player.getX() + correctionXPoint, player.getY() + LEFT_Y));
 			int red = color.getRed();
 			int green = color.getGreen();
 			int blue = color.getBlue();
@@ -120,6 +121,9 @@ public class BackgroundMapService {
 			int blue = color.getBlue();
 
 			if (red == 246 && green == 246 && blue == 246) {
+				if ((item.getX() + 32) - player.getX() <= 10) {
+					item.setIcon(null);
+				}
 				player.setCrashOk(true);
 			}
 			if (!(red == 255 && green == 255 && blue == 255)) {

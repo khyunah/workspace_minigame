@@ -40,7 +40,7 @@ public class Player extends JLabel implements Moveable {
 
 	Item item;
 
-	boolean crashOk;
+	private boolean crashOk;
 
 	boolean isDie;
 
