@@ -95,7 +95,7 @@ public class Monster extends JLabel {
 		}).start();
 	}
 
-	private boolean playerCrash() {
+	public boolean playerCrash() {
 		if (player.getX() - monsterX < 30 && monsterX - player.getX() < 30 && player.getY() - monsterY < 50) {
 			System.out.println("게임 종료");
 			return true;

@@ -32,14 +32,22 @@ public class SuperMarioFrame extends JFrame {
 		initData();
 		setInitLayout();
 		initListener();
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				System.out.println("죽음");
+				gameOver();
+			}
+		}).start();
 	}
 
 	private void initData() {
 		panel = new JPanel();
 		player = new Player();
-		monster1 = new Monster(200,410);
-		monster2 = new Monster(700,410);
-		monster3 = new Monster(1100,410);
+		monster1 = new Monster(200, 410);
+		monster2 = new Monster(700, 410);
+		monster3 = new Monster(1100, 410);
 		bgMap = new JLabel(changIcon);
 		itemBox = new Item(player);
 
@@ -49,7 +57,7 @@ public class SuperMarioFrame extends JFrame {
 		setResizable(true);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 	}
 
 	private void setInitLayout() {
@@ -61,10 +69,20 @@ public class SuperMarioFrame extends JFrame {
 		setContentPane(panel);
 		bgMap.add(player);
 		bgMap.add(itemBox);
-		
+
 		bgMap.add(monster1);
 		bgMap.add(monster2);
 		bgMap.add(monster3);
+	}
+
+	public void gameOver() {
+		while (true) {
+
+			if (player.isDie || monster1.playerCrash()) {
+				System.out.println(player.isDie);
+				bgMap.setIcon(new ImageIcon("images/gameover.jpg"));
+			}
+		}
 	}
 
 	private void initListener() {
@@ -79,7 +97,7 @@ public class SuperMarioFrame extends JFrame {
 							@Override
 							public void run() {
 								for (int i = 0; i < 8; i++) {
-									if(pointX <= 0) {
+									if (pointX <= 0) {
 										pointX = pointX + 3;
 										bgMap.setLocation(pointX, pointY);
 										try {
@@ -103,8 +121,8 @@ public class SuperMarioFrame extends JFrame {
 							@Override
 							public void run() {
 								for (int i = 0; i < 8; i++) {
-									if(pointX + 7000 >= 1500) {
-										pointX = pointX -3;
+									if (pointX + 7000 >= 1500) {
+										pointX = pointX - 3;
 										bgMap.setLocation(pointX, pointY);
 										try {
 											Thread.sleep(10);
@@ -112,7 +130,7 @@ public class SuperMarioFrame extends JFrame {
 											// TODO Auto-generated catch block
 											e.printStackTrace();
 										}
-										
+
 									}
 								}
 							}
@@ -138,7 +156,7 @@ public class SuperMarioFrame extends JFrame {
 							if (!player.isUp() && !player.isDown()) {
 								player.up();
 							}
-							if(player.crashOk) {
+							if (player.crashOk) {
 								itemBox.crashGetMoney();
 							}
 						}

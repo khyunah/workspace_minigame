@@ -71,37 +71,42 @@ public class BackgroundMapService {
 	 * @return
 	 */
 	private boolean isWallCrashColor(int correctionXPoint) {
-		Color color = new Color(bgServiceImage.getRGB(player.getX() + correctionXPoint, player.getY()));
-		int red = color.getRed();
-		int green = color.getGreen();
-		int blue = color.getBlue();
+		try {
+			Color color = new Color(bgServiceImage.getRGB(player.getX() + correctionXPoint, player.getY()));
+			int red = color.getRed();
+			int green = color.getGreen();
+			int blue = color.getBlue();
 
-		// 부딪히는 색상이 빨강색일때 true
-		if (red == 255 && green == 0 && blue == 0) {
-			return true;
-			// 부딪히는 색상이 파랑색일때 ( == 게임 마지막 성에 도착했을때 )
-		} else if (red == 0 && green == 0 && blue == 255) {
-			isWin = true;
-			return false;
+			// 부딪히는 색상이 빨강색일때 true
+			if (red == 255 && green == 0 && blue == 0) {
+				return true;
+				// 부딪히는 색상이 파랑색일때 ( == 게임 마지막 성에 도착했을때 )
+			} else if (red == 0 && green == 0 && blue == 255) {
+				isWin = true;
+				return false;
+			}
+
+		} catch (Exception e) {
 		}
 		return false;
 	}
 
 	private void isBottomCrashColor() {
-		Color color = new Color(bgServiceImage.getRGB(player.getX() + BOTTOM_X, player.getY() + BOTTOM_Y));
-		int red = color.getRed();
-		int green = color.getGreen();
-		int blue = color.getBlue();
-		
+		try {
+			Color color = new Color(bgServiceImage.getRGB(player.getX() + BOTTOM_X, player.getY() + BOTTOM_Y));
+			int red = color.getRed();
+			int green = color.getGreen();
+			int blue = color.getBlue();
 
-		// 바닥이 흰색 아닐때
-		if (!(red == 255 && green == 255 && blue == 255)) {
-			player.setDown(false);
-		} else {
-			if (!player.isUp() && !player.isDown()) {
-				player.down();
-				System.out.println(red +"-" + green +"-"+ blue);
+			// 바닥이 흰색 아닐때
+			if (!(red == 255 && green == 255 && blue == 255)) {
+				player.setDown(false);
+			} else {
+				if (!player.isUp() && !player.isDown()) {
+					player.down();
+				}
 			}
+		} catch (Exception e) {
 		}
 	}
 
@@ -117,7 +122,6 @@ public class BackgroundMapService {
 			}
 			if (!(red == 255 && green == 255 && blue == 255)) {
 				player.setUp(false);
-				System.out.println(color);
 			}
 		} catch (Exception e) {
 		}
