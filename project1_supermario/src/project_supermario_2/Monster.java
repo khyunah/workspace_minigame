@@ -15,8 +15,7 @@ public class Monster extends JLabel {
 
 	private boolean leftCrash;
 	private boolean rightCrash;
-
-	
+	private boolean attacked;
 
 	private ImageIcon enemyL;
 	private ImageIcon enemyR;
@@ -51,9 +50,10 @@ public class Monster extends JLabel {
 		setIcon(enemyR);
 		setSize(30, 30);
 		setLocation(monsterX, monsterY);
-		
+
 		leftCrash = false;
 		rightCrash = false;
+		attacked = false;
 
 	}
 
@@ -69,7 +69,7 @@ public class Monster extends JLabel {
 //					System.out.println(leftCrash);
 					if (leftCrash) {
 						direction = true;
-					} 
+					}
 					if (rightCrash) {
 						direction = false;
 					}
@@ -77,13 +77,13 @@ public class Monster extends JLabel {
 						setIcon(enemyR);
 						monsterX = monsterX + 10;
 						setLocation(monsterX, monsterY);
-//						playerCrash();
+						playerCrash();
 					} else {
 						setIcon(enemyL);
 						monsterX = monsterX - 10;
 						setLocation(monsterX, monsterY);
-//						playerCrash();
-						
+						playerCrash();
+
 					}
 					try {
 						Thread.sleep(300);
@@ -91,15 +91,17 @@ public class Monster extends JLabel {
 						e.printStackTrace();
 					}
 				}
+
 			}
-			
+
 		}).start();
 	}
 
-//	private void playerCrash() {
-//		if(player.getX() - monsterX < 30 && player.getY() - monsterY < 30) {
-//			System.out.println("게임 종료");
-//		}
-//	}
+	private boolean playerCrash() {
+		if (player.getX() - monsterX < 30 && monsterX - player.getX() < 30 && player.getY() - monsterY < 50) {
+			System.out.println("게임 종료");
+		}
+		return attacked = true;
+	}
 
 }
