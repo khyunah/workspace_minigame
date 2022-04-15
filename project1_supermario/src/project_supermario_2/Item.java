@@ -54,7 +54,7 @@ public class Item extends JLabel {
 					e.printStackTrace();
 				}
 			}
-//			removeBox();
+			removeBox();
 		}
 		player.setCrashOk(false);
 	}
@@ -62,8 +62,8 @@ public class Item extends JLabel {
 	public void removeBox() {
 		try {
 			Thread.sleep(1000);
-//			setIcon(null);
-//			itemContext = null;
+			setIcon(null);
+			itemContext = null;
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

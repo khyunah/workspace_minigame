@@ -16,6 +16,7 @@ public class SuperMarioFrame extends JFrame {
 	ImageIcon changIcon = new ImageIcon(changImg);
 
 	private JPanel panel;
+	private JLabel label;
 
 	private JLabel bgMap;
 	private Player player;
@@ -32,32 +33,23 @@ public class SuperMarioFrame extends JFrame {
 		initData();
 		setInitLayout();
 		initListener();
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				System.out.println("죽음");
-				gameOver();
-			}
-		}).start();
 	}
 
 	private void initData() {
 		panel = new JPanel();
-		player = new Player();
+		player = new Player(this);
 		monster1 = new Monster(200, 410);
 		monster2 = new Monster(700, 410);
 		monster3 = new Monster(1100, 410);
 		bgMap = new JLabel(changIcon);
 		itemBox = new Item(player);
-
+		label = new JLabel(new ImageIcon("images/gameover.jpg"));
 		setSize(1500, 540);
 		setLocation(0, 0);
 		setVisible(true);
 		setResizable(true);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 	}
 
 	private void setInitLayout() {
@@ -73,17 +65,15 @@ public class SuperMarioFrame extends JFrame {
 		bgMap.add(monster1);
 		bgMap.add(monster2);
 		bgMap.add(monster3);
+		
+	}
+	
+	public void showGameoverImage() {
+		bgMap.add(label);
+		label.setBounds(-bgMap.getX(),0, 1500, 540);
+//		System.exit(0);
 	}
 
-	public void gameOver() {
-		while (true) {
-
-			if (player.isDie || monster1.playerCrash()) {
-				System.out.println(player.isDie);
-				bgMap.setIcon(new ImageIcon("images/gameover.jpg"));
-			}
-		}
-	}
 
 	private void initListener() {
 		addKeyListener(new KeyAdapter() {
@@ -177,6 +167,7 @@ public class SuperMarioFrame extends JFrame {
 					break;
 				}
 			}
+			
 		});
 	}
 

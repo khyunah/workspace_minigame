@@ -35,6 +35,7 @@ public class Player extends JLabel implements Moveable {
 	private ImageIcon playerL2;
 	private ImageIcon jumpR;
 	private ImageIcon jumpL;
+	private SuperMarioFrame mContext;
 
 	private BackgroundMapService service;
 
@@ -44,7 +45,8 @@ public class Player extends JLabel implements Moveable {
 
 	boolean isDie;
 
-	public Player() {
+	public Player(SuperMarioFrame mContext) {
+		this.mContext = mContext;
 		initObject();
 		initSetting();
 	}
@@ -191,6 +193,9 @@ public class Player extends JLabel implements Moveable {
 
 						if (y > 550) {
 							isDie = true;
+//							mContext.image = new ImageIcon("images/gameover.jpg").getImage();
+//							mContext.repaint();
+							mContext.showGameoverImage();
 						}
 						service.checkBottomColor();
 						System.out.println(y);
