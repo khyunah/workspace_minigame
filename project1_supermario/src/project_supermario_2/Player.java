@@ -36,19 +36,15 @@ public class Player extends JLabel implements Moveable {
 	private ImageIcon jumpR;
 	private ImageIcon jumpL;
 	
-	private int crashCount;
-
-	BackgroundMapService service;
+	private BackgroundMapService service;
+	
 	Item item;
+	
+	boolean crashOk;
 
 	public Player() {
 		initObject();
 		initSetting();
-		initBackgroundPlayerService();
-	}
-
-	private void initBackgroundPlayerService() {
-//		new Thread(new BackgroundPlayerService(this)).start();
 	}
 
 	private void initObject() {
@@ -60,15 +56,13 @@ public class Player extends JLabel implements Moveable {
 		jumpL = new ImageIcon("images/jump_left.png");
 		player = playerR;
 		service = new BackgroundMapService(this);
-		item = new Item();
+		item = new Item(this);
 	}
 
 	private void initSetting() {
 		x = 80;
 		y = 390;
 		
-		crashCount = 0;
-
 		left = false;
 		right = false;
 		up = false;
@@ -76,6 +70,8 @@ public class Player extends JLabel implements Moveable {
 
 		leftWallCrash = false;
 		rightWallCrash = false;
+		
+		crashOk = false;
 
 		setIcon(player);
 		setSize(50, 60);
@@ -86,8 +82,6 @@ public class Player extends JLabel implements Moveable {
 	// 이벤트 핸들러
 	@Override
 	public void left() {
-		System.out.println("left");
-
 		left = true;
 		new Thread(new Runnable() {
 			@Override
@@ -116,7 +110,6 @@ public class Player extends JLabel implements Moveable {
 
 	@Override
 	public void right() {
-		System.out.println("right");
 		right = true;
 		new Thread(new Runnable() {
 
@@ -147,7 +140,6 @@ public class Player extends JLabel implements Moveable {
 	// left + up , right + up
 	@Override
 	public void up() {
-		System.out.println("up");
 		up = true;
 		new Thread(new Runnable() {
 			@Override
@@ -155,7 +147,6 @@ public class Player extends JLabel implements Moveable {
 				for (int i = 0; i < (130 / JUMPSPEED); i++) {
 					service.checkTopColor(item);
 					service.checkBottomColor();
-//					System.out.println();
 					y = y - JUMPSPEED;
 					setLocation(x, y);
 					initSleep(10);
@@ -169,7 +160,6 @@ public class Player extends JLabel implements Moveable {
 						setIcon(player);
 
 					} else {
-						System.out.println("이미지 없음");
 					}
 
 				}
@@ -189,7 +179,6 @@ public class Player extends JLabel implements Moveable {
 
 	@Override
 	public void down() {
-		System.out.println("down");
 		down = true;
 		new Thread(new Runnable() {
 			@Override
@@ -212,10 +201,4 @@ public class Player extends JLabel implements Moveable {
 			e.printStackTrace();
 		}
 	}
-	
-	public int iscrashCount() {
-		
-		return crashCount;
-	}
-
 }

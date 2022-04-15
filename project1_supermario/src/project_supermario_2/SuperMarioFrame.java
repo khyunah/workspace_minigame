@@ -23,9 +23,7 @@ public class SuperMarioFrame extends JFrame {
 	private Monster monster2;
 	private Monster monster3;
 
-	Item item;
-
-	Item itemBox;
+	private Item itemBox;
 
 	int pointX = 0;
 	int pointY = 0;
@@ -43,7 +41,7 @@ public class SuperMarioFrame extends JFrame {
 		monster2 = new Monster(700,410);
 		monster3 = new Monster(1100,410);
 		bgMap = new JLabel(changIcon);
-		itemBox = new Item();
+		itemBox = new Item(player);
 
 		setSize(1500, 540);
 		setLocation(0, 0);
@@ -76,8 +74,7 @@ public class SuperMarioFrame extends JFrame {
 			public void keyPressed(KeyEvent e) {
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_LEFT:
-					System.out.println("왼쪽 방향키 눌림");
-					if (!player.service.checkLeftWall()) {
+					if (!player.getService().checkLeftWall()) {
 						new Thread(new Runnable() {
 							@Override
 							public void run() {
@@ -88,10 +85,8 @@ public class SuperMarioFrame extends JFrame {
 										try {
 											Thread.sleep(10);
 										} catch (InterruptedException e) {
-											// TODO Auto-generated catch block
 											e.printStackTrace();
 										}
-										
 									}
 								}
 							}
@@ -103,8 +98,7 @@ public class SuperMarioFrame extends JFrame {
 					break;
 
 				case KeyEvent.VK_RIGHT:
-					System.out.println("오른쪽 방향키 눌림");
-					if (!player.service.checkRightWall()) {
+					if (!player.getService().checkRightWall()) {
 						new Thread(new Runnable() {
 							@Override
 							public void run() {
@@ -121,7 +115,6 @@ public class SuperMarioFrame extends JFrame {
 										
 									}
 								}
-
 							}
 						}).start();
 					}
@@ -131,7 +124,6 @@ public class SuperMarioFrame extends JFrame {
 					break;
 
 				case KeyEvent.VK_UP:
-					System.out.println("위 쪽 방향키 눌림");
 					new Thread(new Runnable() {
 
 						@Override
@@ -140,14 +132,16 @@ public class SuperMarioFrame extends JFrame {
 								try {
 									Thread.sleep(10);
 								} catch (InterruptedException e) {
-									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
 							}
 							if (!player.isUp() && !player.isDown()) {
 								player.up();
 							}
-							itemBox.setIcon(itemBox.getItemMoney());
+							if(player.crashOk) {
+								itemBox.crashGetMoney();
+								
+							}
 						}
 					}).start();
 				}
@@ -172,5 +166,4 @@ public class SuperMarioFrame extends JFrame {
 	public static void main(String[] args) {
 		new SuperMarioFrame();
 	}
-
 }

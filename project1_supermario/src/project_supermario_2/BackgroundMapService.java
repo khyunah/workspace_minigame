@@ -1,8 +1,6 @@
 package project_supermario_2;
 
 import java.awt.Color;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +18,7 @@ public class BackgroundMapService {
 	private final int TOP_X = 25;
 
 	private Player player;
+	Item item;
 
 	// 성에 도착했을때 true
 	// true이면 이기는 화면 나오게 구현하기
@@ -27,6 +26,7 @@ public class BackgroundMapService {
 
 	public BackgroundMapService(Player player) {
 		this.player = player;
+		item = new Item(player);
 		initObject();
 	}
 
@@ -76,12 +76,11 @@ public class BackgroundMapService {
 		int green = color.getGreen();
 		int blue = color.getBlue();
 
-		// 부딪히는 색상이 빨강색이거나 초록색일때 true
-		if (red == 255 && green == 0 && blue == 0 || red == 0 && green == 255 && blue == 0) {
-			System.out.println("true");
+		// 부딪히는 색상이 빨강색일때 true
+		if (red == 255 && green == 0 && blue == 0) {
 			return true;
-			// 부딪히는 색상이 검정색일때 ( == 게임 마지막 성에 도착했을때 )
-		} else if (red == 0 && green == 0 && blue == 0) {
+			// 부딪히는 색상이 파랑색일때 ( == 게임 마지막 성에 도착했을때 )
+		} else if (red == 0 && green == 0 && blue == 255) {
 			isWin = true;
 			return false;
 		}
@@ -110,11 +109,12 @@ public class BackgroundMapService {
 		int green = color.getGreen();
 		int blue = color.getBlue();
 
-		// 머리가 파랑색 일때
-		if (red == 0 && green == 0 && blue == 255) {
-			player.setUp(false);
-			item.setCrashCount(1);
-			item.crashGetMoney();
+		if(red == 246 && green == 246 && blue == 246) {
+			player.setCrashOk(true);
 		}
+		if (!(red == 255 && green == 255 && blue == 255)) {
+			player.setUp(false);
+			System.out.println(color);
+		} 
 	}
 }
