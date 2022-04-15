@@ -56,13 +56,14 @@ public class Item extends JLabel {
 			}
 			removeBox();
 		}
+		player.setCrashOk(false);
 	}
 	
 	public void removeBox() {
 		try {
 			Thread.sleep(1000);
-			setIcon(null);
-			itemContext = null;
+//			setIcon(null);
+//			itemContext = null;
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

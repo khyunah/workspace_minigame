@@ -138,7 +138,10 @@ public class SuperMarioFrame extends JFrame {
 							if (!player.isUp() && !player.isDown()) {
 								player.up();
 							}
-							itemBox.crashGetMoney();
+							if(player.crashOk) {
+								itemBox.crashGetMoney();
+								
+							}
 						}
 					}).start();
 				}
