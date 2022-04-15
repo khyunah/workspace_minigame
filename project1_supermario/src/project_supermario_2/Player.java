@@ -35,12 +35,14 @@ public class Player extends JLabel implements Moveable {
 	private ImageIcon playerL2;
 	private ImageIcon jumpR;
 	private ImageIcon jumpL;
-	
+
 	private BackgroundMapService service;
-	
+
 	Item item;
-	
+
 	boolean crashOk;
+
+	boolean isDie;
 
 	public Player() {
 		initObject();
@@ -62,7 +64,7 @@ public class Player extends JLabel implements Moveable {
 	private void initSetting() {
 		x = 80;
 		y = 390;
-		
+
 		left = false;
 		right = false;
 		up = false;
@@ -70,8 +72,9 @@ public class Player extends JLabel implements Moveable {
 
 		leftWallCrash = false;
 		rightWallCrash = false;
-		
+
 		crashOk = false;
+		isDie = false;
 
 		setIcon(player);
 		setSize(50, 60);
@@ -87,8 +90,8 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (left) {
+					service.checkLeftWall();
 					if (!service.checkLeftWall()) {
-						service.checkLeftWall();
 						service.checkBottomColor();
 						player = playerL;
 						setIcon(player);
@@ -184,10 +187,17 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (down) {
-					service.checkBottomColor();
-					y = y + JUMPSPEED;
-					setLocation(x, y);
-					initSleep(3);
+					if (y < 600) {
+
+						if (y > 550) {
+							isDie = true;
+						}
+						service.checkBottomColor();
+						System.out.println(y);
+						y = y + JUMPSPEED;
+						setLocation(x, y);
+						initSleep(3);
+					}
 				}
 				down = false;
 			}

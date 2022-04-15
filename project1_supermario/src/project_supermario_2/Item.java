@@ -54,7 +54,7 @@ public class Item extends JLabel {
 					e.printStackTrace();
 				}
 			}
-			removeBox();
+//			removeBox();
 		}
 		player.setCrashOk(false);
 	}
