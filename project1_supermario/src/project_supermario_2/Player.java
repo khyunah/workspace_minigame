@@ -92,8 +92,8 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (left) {
-					service.checkLeftWall();
 					if (!service.checkLeftWall()) {
+						service.checkLeftWall();
 						service.checkBottomColor();
 						player = playerL;
 						setIcon(player);
