@@ -104,17 +104,20 @@ public class BackgroundMapService {
 	}
 
 	private void isTopCrashColor(Item item) {
-		Color color = new Color(bgServiceImage.getRGB(player.getX() + TOP_X, player.getY()));
-		int red = color.getRed();
-		int green = color.getGreen();
-		int blue = color.getBlue();
+		try {
+			Color color = new Color(bgServiceImage.getRGB(player.getX() + TOP_X, player.getY()));
+			int red = color.getRed();
+			int green = color.getGreen();
+			int blue = color.getBlue();
 
-		if(red == 246 && green == 246 && blue == 246) {
-			player.setCrashOk(true);
+			if (red == 246 && green == 246 && blue == 246) {
+				player.setCrashOk(true);
+			}
+			if (!(red == 255 && green == 255 && blue == 255)) {
+				player.setUp(false);
+				System.out.println(color);
+			}
+		} catch (Exception e) {
 		}
-		if (!(red == 255 && green == 255 && blue == 255)) {
-			player.setUp(false);
-			System.out.println(color);
-		} 
 	}
 }
