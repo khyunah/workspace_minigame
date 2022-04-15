@@ -141,7 +141,9 @@ public class SuperMarioFrame extends JFrame {
 									e.printStackTrace();
 								}
 							}
-							player.up();
+							if (!player.isUp() && !player.isDown()) {
+								player.up();
+							}
 						}
 					}).start();
 				}
