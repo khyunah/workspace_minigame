@@ -76,7 +76,7 @@ public class BackgroundMapService {
 			int red = color.getRed();
 			int green = color.getGreen();
 			int blue = color.getBlue();
-			
+
 			// 부딪히는 색상이 빨강색일때 true
 			if (red == 255 && green == 0 && blue == 0) {
 				System.out.println("빨강벽 접촉 ");
@@ -87,7 +87,7 @@ public class BackgroundMapService {
 				isWin = true;
 				return false;
 			}
-			
+
 		} catch (Exception e) {
 		}
 		return false;

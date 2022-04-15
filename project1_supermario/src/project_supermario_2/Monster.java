@@ -15,7 +15,6 @@ public class Monster extends JLabel {
 
 	private boolean leftCrash;
 	private boolean rightCrash;
-	private boolean attacked;
 
 	private ImageIcon enemyL;
 	private ImageIcon enemyR;
@@ -53,7 +52,6 @@ public class Monster extends JLabel {
 
 		leftCrash = false;
 		rightCrash = false;
-		attacked = false;
 
 	}
 
