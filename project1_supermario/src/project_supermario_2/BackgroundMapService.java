@@ -79,6 +79,8 @@ public class BackgroundMapService {
 			
 			// 부딪히는 색상이 빨강색일때 true
 			if (red == 255 && green == 0 && blue == 0) {
+				System.out.println("빨강벽 접촉 ");
+				System.out.println(color);
 				return true;
 				// 부딪히는 색상이 파랑색일때 ( == 게임 마지막 성에 도착했을때 )
 			} else if (red == 0 && green == 0 && blue == 255) {

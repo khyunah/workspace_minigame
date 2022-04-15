@@ -93,7 +93,6 @@ public class Monster extends JLabel {
 				}
 
 			}
-
 		}).start();
 	}
 

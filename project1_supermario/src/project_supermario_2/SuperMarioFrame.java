@@ -97,7 +97,7 @@ public class SuperMarioFrame extends JFrame {
 							@Override
 							public void run() {
 								for (int i = 0; i < 8; i++) {
-									if (pointX <= 0) {
+									if (pointX <= -20) {
 										pointX = pointX + 3;
 										bgMap.setLocation(pointX, pointY);
 										try {
