@@ -104,7 +104,7 @@ public class SuperMarioFrame extends JFrame {
 
 				case KeyEvent.VK_RIGHT:
 					System.out.println("오른쪽 방향키 눌림");
-					if (!player.isRightWallCrash()) {
+					if (!player.service.checkRightWall()) {
 						new Thread(new Runnable() {
 							@Override
 							public void run() {
@@ -144,6 +144,7 @@ public class SuperMarioFrame extends JFrame {
 							if (!player.isUp() && !player.isDown()) {
 								player.up();
 							}
+							itemBox.setIcon(itemBox.getItemMoney());
 						}
 					}).start();
 				}
