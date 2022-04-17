@@ -24,6 +24,10 @@ public class BackgroundMapService {
 	// 성에 도착했을때 true
 	// true이면 이기는 화면 나오게 구현하기
 	private boolean isWin;
+	
+	public boolean isWin() {
+		return isWin;
+	}
 
 	public BackgroundMapService(Player player) {
 		this.player = player;
@@ -84,10 +88,11 @@ public class BackgroundMapService {
 				System.out.println(color);
 				return true;
 				// 부딪히는 색상이 파랑색일때 ( == 게임 마지막 성에 도착했을때 )
-			} else if (red == 0 && green == 0 && blue == 255) {
+			} else if (red == 92 && green == 92 && blue == 255) {
 				isWin = true;
 				return false;
 			}
+			System.out.println(color);
 
 		} catch (Exception e) {
 		}

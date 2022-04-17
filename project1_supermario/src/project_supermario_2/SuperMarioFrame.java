@@ -17,6 +17,7 @@ public class SuperMarioFrame extends JFrame {
 
 	private JPanel panel;
 	private JLabel label;
+	private JLabel winImage;
 
 	private JLabel bgMap;
 	private Player player;
@@ -47,6 +48,8 @@ public class SuperMarioFrame extends JFrame {
 
 		itemBox2 = new Item(player);
 		label = new JLabel(new ImageIcon("images/gameover.jpg"));
+		winImage = new JLabel(new ImageIcon("images/winImg.png"));
+		
 		setSize(1500, 540);
 		setLocation(0, 0);
 		setVisible(true);
@@ -72,7 +75,16 @@ public class SuperMarioFrame extends JFrame {
 	public void showGameoverImage() {
 		bgMap.add(label);
 		label.setBounds(-bgMap.getX(),0, 1500, 540);
+		player.setIcon(null);
+		player = null;
 //		System.exit(0);
+	}
+	
+	public void showWinImage() {
+		bgMap.add(winImage);
+		winImage.setBounds(-bgMap.getX(), 0, 1500, 540);
+		player.setIcon(null);
+		player = null;
 	}
 
 

@@ -64,7 +64,7 @@ public class Player extends JLabel implements Moveable {
 	}
 
 	private void initSetting() {
-		x = 80;
+		x = 50;
 		y = 390;
 
 		left = false;
@@ -122,6 +122,9 @@ public class Player extends JLabel implements Moveable {
 			public void run() {
 
 				while (right) {
+					if(service.isWin()) {
+						mContext.showWinImage();
+					};
 					if (!service.checkRightWall()) {
 						service.checkRightWall();
 						service.checkBottomColor();
@@ -149,7 +152,7 @@ public class Player extends JLabel implements Moveable {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				for (int i = 0; i < (130 / JUMPSPEED); i++) {
+				for (int i = 0; i < (150/ JUMPSPEED); i++) {
 					service.checkTopColor(item);
 					service.checkBottomColor();
 					y = y - JUMPSPEED;
