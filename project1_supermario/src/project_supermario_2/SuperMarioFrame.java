@@ -23,6 +23,7 @@ public class SuperMarioFrame extends JFrame {
 	private Monster monster1;
 	private Monster monster2;
 	private Monster monster3;
+	private Mushroom mushroom;
 
 	private Item itemBox1;
 	private Item itemBox2;
@@ -44,8 +45,8 @@ public class SuperMarioFrame extends JFrame {
 		monster3 = new Monster(1100, 410);
 		bgMap = new JLabel(changIcon);
 		itemBox1 = new Item(player);
-
 		itemBox2 = new Item(player);
+		mushroom = new Mushroom();
 		label = new JLabel(new ImageIcon("images/gameover.jpg"));
 		setSize(1500, 540);
 		setLocation(0, 0);
@@ -66,6 +67,7 @@ public class SuperMarioFrame extends JFrame {
 		bgMap.add(monster1);
 		bgMap.add(monster2);
 		bgMap.add(monster3);
+		bgMap.add(mushroom);
 		
 	}
 	
