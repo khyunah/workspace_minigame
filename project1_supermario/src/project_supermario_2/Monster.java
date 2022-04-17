@@ -23,7 +23,8 @@ public class Monster extends JLabel {
 	private BackgroundMapService mapStervice;
 	private SuperMarioFrame mContext;
 
-	public Monster(int monsterX, int monsterY) {
+	public Monster(int monsterX, int monsterY, SuperMarioFrame mContext) {
+		this.mContext = mContext;
 		this.monsterX = monsterX;
 		this.monsterY = monsterY;
 		initBackgroundMonsterService();
@@ -40,6 +41,7 @@ public class Monster extends JLabel {
 		enemyL = new ImageIcon("images/enemy_left.png");
 		enemyR = new ImageIcon("images/enemy_right.png");
 		enemy = enemyR;
+		player = Player.getInstance(mContext);
 	}
 
 	private void initSetting() {
@@ -72,12 +74,12 @@ public class Monster extends JLabel {
 						setIcon(enemyR);
 						monsterX = monsterX + 10;
 						setLocation(monsterX, monsterY);
-//						playerCrash();
+						playerCrash();
 					} else {
 						setIcon(enemyL);
 						monsterX = monsterX - 10;
 						setLocation(monsterX, monsterY);
-//						playerCrash();
+						playerCrash();
 
 					}
 					try {
@@ -91,13 +93,12 @@ public class Monster extends JLabel {
 		}).start();
 	}
 
-	public boolean playerCrash() {
+	public void playerCrash() {
 		if (player.getX() - monsterX < 30 && monsterX - player.getX() < 30 && player.getY() - monsterY < 50) {
 			System.out.println("게임 종료");
+			mContext.showGameoverImage();
 			
-			return true;
 		}
-		return false;
 	}
 
 }

@@ -45,10 +45,19 @@ public class Player extends JLabel implements Moveable {
 
 	boolean isDie;
 
-	public Player(SuperMarioFrame mContext) {
+	private Player(SuperMarioFrame mContext) {
 		this.mContext = mContext;
 		initObject();
 		initSetting();
+	}
+	
+	private static Player instance;
+	
+	public static Player getInstance(SuperMarioFrame mContext) {
+		if(instance == null) {
+			instance = new Player(mContext);
+		}
+		return instance;
 	}
 
 	private void initObject() {
@@ -168,6 +177,7 @@ public class Player extends JLabel implements Moveable {
 						setIcon(player);
 
 					} else {
+						
 					}
 
 				}
@@ -219,4 +229,5 @@ public class Player extends JLabel implements Moveable {
 			e.printStackTrace();
 		}
 	}
+	
 }

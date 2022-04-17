@@ -40,10 +40,10 @@ public class SuperMarioFrame extends JFrame {
 
 	private void initData() {
 		panel = new JPanel();
-		player = new Player(this);
-		monster1 = new Monster(200, 410);
-		monster2 = new Monster(700, 410);
-		monster3 = new Monster(1100, 410);
+		player = Player.getInstance(this);
+		monster1 = new Monster(200, 410, this);
+		monster2 = new Monster(700, 410, this);
+		monster3 = new Monster(1100, 410, this);
 		bgMap = new JLabel(changIcon);
 //		itemBox1 = new Item(player);
 //		itemBox2 = new Item(player);
@@ -79,6 +79,13 @@ public class SuperMarioFrame extends JFrame {
 		label.setBounds(-bgMap.getX(),0, 1500, 540);
 		player.setIcon(null);
 		player = null;
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.exit(0);
 //		System.exit(0);
 	}
 	
