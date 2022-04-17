@@ -26,8 +26,8 @@ public class SuperMarioFrame extends JFrame {
 	private Monster monster3;
 	private Mushroom mushroom;
 
-	private Item itemBox1;
-	private Item itemBox2;
+//	private Item itemBox1;
+//	private Item itemBox2;
 
 	int pointX = 0;
 	int pointY = 0;
@@ -45,8 +45,8 @@ public class SuperMarioFrame extends JFrame {
 		monster2 = new Monster(700, 410);
 		monster3 = new Monster(1100, 410);
 		bgMap = new JLabel(changIcon);
-		itemBox1 = new Item(player);
-		itemBox2 = new Item(player);
+//		itemBox1 = new Item(player);
+//		itemBox2 = new Item(player);
 		mushroom = new Mushroom();
 		label = new JLabel(new ImageIcon("images/gameover.jpg"));
 		winImage = new JLabel(new ImageIcon("images/winImg.png"));
@@ -65,7 +65,7 @@ public class SuperMarioFrame extends JFrame {
 		setContentPane(panel);
 		
 		bgMap.add(player);
-		bgMap.add(itemBox1);
+//		bgMap.add(itemBox1);
 
 		bgMap.add(monster1);
 		bgMap.add(monster2);
@@ -161,9 +161,9 @@ public class SuperMarioFrame extends JFrame {
 							if (!player.isUp() && !player.isDown()) {
 								player.up();
 							}
-							if (player.isCrashOk()) {
-								itemBox1.crashGetMoney();
-							}
+//							if (player.isCrashOk()) {
+//								itemBox1.crashGetMoney();
+//							}
 						}
 					}).start();
 				}

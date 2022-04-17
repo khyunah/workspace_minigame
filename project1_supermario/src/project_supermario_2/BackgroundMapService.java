@@ -126,10 +126,10 @@ public class BackgroundMapService {
 			int blue = color.getBlue();
 
 			if (red == 246 && green == 246 && blue == 246) {
-				if ((item.getX() + 32) - player.getX() <= 10) {
-					item.setIcon(null);
-				}
-				player.setCrashOk(true);
+//				if ((item.getX() + 32) - player.getX() <= 10) {
+//					item.setIcon(null);
+//				}
+//				player.setCrashOk(true);
 			}
 			if (!(red == 255 && green == 255 && blue == 255)) {
 				player.setUp(false);
