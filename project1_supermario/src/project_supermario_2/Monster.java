@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 public class Monster extends JLabel {
-
+	
 	private int monsterX;
 	private int monsterY;
 	private boolean left;
@@ -15,12 +15,11 @@ public class Monster extends JLabel {
 
 	private boolean leftCrash;
 	private boolean rightCrash;
-
+	
 	private ImageIcon enemyL;
 	private ImageIcon enemyR;
 	private ImageIcon enemy;
 	Player player;
-	private BackgroundMapService mapStervice;
 	private SuperMarioFrame mContext;
 
 	public Monster(int monsterX, int monsterY, SuperMarioFrame mContext) {
@@ -30,7 +29,7 @@ public class Monster extends JLabel {
 		initBackgroundMonsterService();
 		initObject();
 		initSetting();
-//		addEventListener();
+		addEventListener();
 	}
 
 	private void initBackgroundMonsterService() {
@@ -38,6 +37,7 @@ public class Monster extends JLabel {
 	}
 
 	private void initObject() {
+//		monsterBg = new BackgroundMonsterService(this);
 		enemyL = new ImageIcon("images/enemy_left.png");
 		enemyR = new ImageIcon("images/enemy_right.png");
 		enemy = enemyR;
@@ -52,54 +52,54 @@ public class Monster extends JLabel {
 
 		leftCrash = false;
 		rightCrash = false;
+		
 
 	}
 
-//	private void addEventListener() {
-//		setIcon(enemy);
-//		new Thread(new Runnable() {
-//			boolean direction;
-//
-//			@Override
-//			public void run() {
-//				setIcon(enemy);
-//				while (true) {
-//					if (leftCrash) {
-//						direction = true;
-//					}
-//					if (rightCrash) {
-//						direction = false;
-//					}
-//					if (direction) {
-//						setIcon(enemyR);
-//						monsterX = monsterX + 10;
-//						setLocation(monsterX, monsterY);
-////						playerCrash();
-//					} else {
-//						setIcon(enemyL);
-//						monsterX = monsterX - 10;
-//						setLocation(monsterX, monsterY);
-////						playerCrash();
-//
-//					}
-//					try {
-//						Thread.sleep(300);
-//					} catch (InterruptedException e) {
-//						e.printStackTrace();
-//					}
-//				}
-//
-//			}
-//		}).start();
-//	}
+	private void addEventListener() {
+		setIcon(enemy);
+		new Thread(new Runnable() {
+			boolean direction;
 
-//	public void playerCrash() {
-//		if (player.getX() - monsterX < 30 && monsterX - player.getX() < 30 && player.getY() - monsterY < 50) {
-//			System.out.println("게임 종료");
-//			mContext.showGameoverImage();
-//			
-//			
-//		}
-//	}
+			@Override
+			public void run() {
+				setIcon(enemy);
+				while (true) {
+					if (leftCrash) {
+						direction = true;
+					}
+					if (rightCrash) {
+						direction = false;
+					}
+					if (direction) {
+						setIcon(enemyR);
+						monsterX = monsterX + 10;
+						setLocation(monsterX, monsterY);
+						playerCrash();
+					} else {
+						setIcon(enemyL);
+						monsterX = monsterX - 10;
+						setLocation(monsterX, monsterY);
+						playerCrash();
+
+					}
+					try {
+						Thread.sleep(300);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+
+			}
+		}).start();
+	}
+
+	public void playerCrash() {
+		if ( (Math.abs(player.getX()-monsterX) < 25) && (Math.abs(player.getY() -monsterY) < 30)) {
+			System.out.println("게임 종료");
+			mContext.showGameoverImage();
+			
+		}
+	}
 
 }

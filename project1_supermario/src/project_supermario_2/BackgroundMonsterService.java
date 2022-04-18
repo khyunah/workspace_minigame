@@ -18,7 +18,7 @@ public class BackgroundMonsterService implements Runnable {
 	public BackgroundMonsterService(Monster monster) {
 		this.monster = monster;
 		try {
-			bgImage = ImageIO.read(new File("images/MapService.png"));
+			bgImage = ImageIO.read(new File("images/MapService2.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
