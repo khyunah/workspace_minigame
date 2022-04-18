@@ -1,9 +1,6 @@
 package project_supermario_2;
 
-import java.awt.FlowLayout;
 import java.awt.Image;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -15,7 +12,7 @@ import javax.swing.JPanel;
 import lombok.Getter;
 
 @Getter
-public class SuperMarioFrame extends JFrame implements FocusListener{
+public class SuperMarioFrame extends JFrame {
 
 	Image image = new ImageIcon("images/marioBackgroundMap.gif").getImage();
 	Image changImg = image.getScaledInstance(7000, 500, Image.SCALE_SMOOTH);
@@ -31,6 +28,7 @@ public class SuperMarioFrame extends JFrame implements FocusListener{
 	private Monster monster2;
 	private Monster monster3;
 	private Mushroom mushroom;
+	private boolean gameOver = false;
 
 	private int pointX = 0;
 	private int pointY = 0;
@@ -44,11 +42,11 @@ public class SuperMarioFrame extends JFrame implements FocusListener{
 	private void initData() {
 		panel = new JPanel();
 		player = Player.getInstance(this);
-		monster1 = new Monster(200, 410, this);
-		monster2 = new Monster(700, 410, this);
-		monster3 = new Monster(1100, 410, this);
+		monster1 = new Monster(700, 410, this);
+		monster2 = new Monster(3900, 410, this);
+		monster3 = new Monster(5600, 410, this);
 		bgMap = new JLabel(changIcon);
-		mushroom = new Mushroom();
+		mushroom = new Mushroom(this);
 		label = new JLabel(new ImageIcon("images/gameover.jpg"));
 		winImage = new JLabel(new ImageIcon("images/winImg.png"));
 
@@ -61,14 +59,10 @@ public class SuperMarioFrame extends JFrame implements FocusListener{
 	}
 
 	private void setInitLayout() {
-		panel.setLayout(new FlowLayout(FlowLayout.LEFT));
-		panel.setFocusable(false);
 		bgMap.setLocation(pointX, pointY);
 		panel.add(bgMap);
 		setContentPane(panel);
-
 		bgMap.add(player);
-
 		bgMap.add(monster1);
 		bgMap.add(monster2);
 		bgMap.add(monster3);
@@ -76,104 +70,116 @@ public class SuperMarioFrame extends JFrame implements FocusListener{
 	}
 
 	public void showGameoverImage() {
+		gameOver = true;
 		bgMap.add(label);
-		label.setBounds(-bgMap.getX(),0, 1500, 540);
-//		player.setIcon(null);
-//		player = null;
+		label.setBounds(-bgMap.getX(), 0, 1500, 540);
+		bgMap.remove(player);
+		bgMap.remove(monster1);
+		bgMap.remove(monster2);
+		bgMap.remove(monster3);
+		bgMap.remove(mushroom);
+		this.repaint();
+
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.exit(0);
-//		System.exit(0);
 	}
 
 	public void showWinImage() {
+		gameOver = true;
 		bgMap.add(winImage);
 		winImage.setBounds(-bgMap.getX(), 0, 1500, 540);
+		bgMap.remove(player);
+		bgMap.remove(monster1);
+		bgMap.remove(monster2);
+		bgMap.remove(monster3);
+		bgMap.remove(mushroom);
+		this.repaint();
 	}
 
 	private void initListener() {
-		addFocusListener(this);
 		addKeyListener(new KeyAdapter() {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				requestFocus();
-				switch (e.getKeyCode()) {
-				case KeyEvent.VK_LEFT:
-					if (!player.getService().checkLeftWall()) {
-						new Thread(new Runnable() {
-							@Override
-							public void run() {
-								for (int i = 0; i < 8; i++) {
-									if (pointX <= 0) {
-										pointX = pointX + 3;
-										bgMap.setLocation(pointX, pointY);
-										try {
-											Thread.sleep(10);
-										} catch (InterruptedException e) {
-											e.printStackTrace();
+				if (!gameOver) {
+
+					switch (e.getKeyCode()) {
+					case KeyEvent.VK_LEFT:
+						if (!player.getService().checkLeftWall()) {
+							new Thread(new Runnable() {
+								@Override
+								public void run() {
+									for (int i = 0; i < 8; i++) {
+										if (pointX <= 0) {
+											pointX = pointX + 3;
+											bgMap.setLocation(pointX, pointY);
+											try {
+												Thread.sleep(10);
+											} catch (InterruptedException e) {
+												e.printStackTrace();
+											}
 										}
 									}
 								}
-							}
-						}).start();
-					}
-					if (!player.isLeft() && !player.isLeftWallCrash()) {
-						player.left();
-					}
-					break;
-
-				case KeyEvent.VK_RIGHT:
-					if (!player.getService().checkRightWall()) {
-						new Thread(new Runnable() {
-							@Override
-							public void run() {
-								for (int i = 0; i < 8; i++) {
-									if (pointX + 7000 >= 1500) {
-										pointX = pointX - 3;
-										bgMap.setLocation(pointX, pointY);
-										try {
-											Thread.sleep(10);
-										} catch (InterruptedException e) {
-											// TODO Auto-generated catch block
-											e.printStackTrace();
-										}
-
-									}
-								}
-							}
-						}).start();
-					}
-					if (!player.isRight() && !player.isRightWallCrash()) {
-						player.right();
-					}
-					break;
-
-				case KeyEvent.VK_UP:
-					new Thread(new Runnable() {
-
-						@Override
-						public void run() {
-							for (int i = 0; i < 7; i++) {
-								try {
-									Thread.sleep(10);
-								} catch (InterruptedException e) {
-									e.printStackTrace();
-								}
-							}
-							if (!player.isUp() && !player.isDown()) {
-								player.up();
-							}
+							}).start();
 						}
-					}).start();
-					break;
-				case KeyEvent.VK_DOWN:
-					bgMap.setLocation(pointX, pointY);
-					break;
+						if (!player.isLeft() && !player.isLeftWallCrash()) {
+							player.left();
+						}
+						break;
+
+					case KeyEvent.VK_RIGHT:
+						if (!player.getService().checkRightWall()) {
+							new Thread(new Runnable() {
+								@Override
+								public void run() {
+									for (int i = 0; i < 8; i++) {
+										if (pointX + 7000 >= 1500) {
+											pointX = pointX - 3;
+											bgMap.setLocation(pointX, pointY);
+											try {
+												Thread.sleep(10);
+											} catch (InterruptedException e) {
+												// TODO Auto-generated catch block
+												e.printStackTrace();
+											}
+
+										}
+									}
+								}
+							}).start();
+						}
+						if (!player.isRight() && !player.isRightWallCrash()) {
+							player.right();
+						}
+						break;
+
+					case KeyEvent.VK_UP:
+						new Thread(new Runnable() {
+
+							@Override
+							public void run() {
+								for (int i = 0; i < 7; i++) {
+									try {
+										Thread.sleep(10);
+									} catch (InterruptedException e) {
+										e.printStackTrace();
+									}
+								}
+								if (!player.isUp() && !player.isDown()) {
+									player.up();
+								}
+							}
+						}).start();
+						break;
+					case KeyEvent.VK_DOWN:
+						bgMap.setLocation(pointX, pointY);
+						break;
+					}
 				}
 			}
 
@@ -196,17 +202,5 @@ public class SuperMarioFrame extends JFrame implements FocusListener{
 
 	public static void main(String[] args) {
 		new SuperMarioFrame();
-	}
-
-	@Override
-	public void focusGained(FocusEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void focusLost(FocusEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 }

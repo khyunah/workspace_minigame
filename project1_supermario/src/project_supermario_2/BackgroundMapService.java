@@ -18,19 +18,16 @@ public class BackgroundMapService {
 	private final int BOTTOM_Y = 60;
 	private final int TOP_X = 25;
 	
-	
-
 	private int crashX;
 	private int crashY;
 
 	private Player player;
-	
 
 	// 성에 도착했을때 true
 	// true이면 이기는 화면 나오게 구현하기
 	private boolean isWin;
 
-	public boolean isWin() {
+	public boolean isWin() { 
 		return isWin;
 	}
 	
@@ -93,6 +90,7 @@ public class BackgroundMapService {
 		try {
 			Color color = new Color(
 					bgServiceImage.getRGB(player.getX() + correctionXPoint, player.getY() + LEFTANDRIGHT_Y));
+
 			int red = color.getRed();
 			int green = color.getGreen();
 			int blue = color.getBlue();
@@ -107,6 +105,7 @@ public class BackgroundMapService {
 			}
 
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return false;
 	}
@@ -127,6 +126,7 @@ public class BackgroundMapService {
 				}
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

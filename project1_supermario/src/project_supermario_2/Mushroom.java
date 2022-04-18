@@ -1,5 +1,10 @@
 package project_supermario_2;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+import java.io.File;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -7,12 +12,11 @@ import lombok.Data;
 
 @Data
 public class Mushroom extends JLabel implements Moveable {
-
+	private Mushroom mush;
 	private ImageIcon mushroom;
 	private Player player;
-	
-
 	private MushroomObserver mushroomObserver;
+	private SuperMarioFrame mContext;
 
 	private boolean left;
 	private boolean right;
@@ -22,7 +26,10 @@ public class Mushroom extends JLabel implements Moveable {
 	private int mushroomX = 762;
 	private int mushroomY = 278;
 
-	public Mushroom() {
+	public Mushroom(SuperMarioFrame mContext) {
+		this.mush = this;
+		this.mContext = mContext;
+		this.player = player.getInstance(this.mContext);
 		initObject();
 		initSetting();
 		addEventListener();
@@ -43,7 +50,6 @@ public class Mushroom extends JLabel implements Moveable {
 		setIcon(mushroom);
 		setSize(30, 30);
 		setLocation(mushroomX, mushroomY);
-
 	}
 
 	private void addEventListener() {
@@ -52,9 +58,15 @@ public class Mushroom extends JLabel implements Moveable {
 
 			@Override
 			public void run() {
-				
-				while (true) {
 
+				while (true) {
+					try {
+						crashMushroom();
+					} catch (AWTException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
 					if (mushroomObserver.checkbottom()) {
 						down();
 					} else {
@@ -66,6 +78,7 @@ public class Mushroom extends JLabel implements Moveable {
 					} else {
 						right();
 					}
+					
 
 					threadSleep(25);
 
@@ -81,8 +94,13 @@ public class Mushroom extends JLabel implements Moveable {
 
 	@Override
 	public void left() {
-
 		while (true) {
+			try {
+				crashMushroom();
+			} catch (AWTException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			mushroomX--;
 			setLocation(mushroomX, mushroomY);
 			threadSleep(25);
@@ -124,20 +142,18 @@ public class Mushroom extends JLabel implements Moveable {
 
 	@Override
 	public void up() {
+		
 	}
 
-	public void crashMushroom(Player player, Mushroom mushroom) {
+	public void crashMushroom() throws AWTException {
+		if ((Math.abs(mushroomX - player.getX()) < 10)) {
+			mush.setVisible(false);
+			setIcon(null);
+//			Player.getInstance(mContext).giant();
 
-		boolean crashCheck = false;
-		if (Math.abs((player.getX() - mushroom.getX())
-				- (mushroomX + mushroom.getWidth() / 2)) < (mushroom.getWidth() / 2 + player.getWidth() / 2)
-				&& Math.abs((player.getY() + player.getHeight() / 2)
-						- (mushroomY + mushroom.getHeight() / 2)) < (mushroom.getHeight() / 2
-								+ player.getHeight() / 2)) {
-
+// 			player.setPlayerW(100);
+//			player.setPlayerH(120);
+//			player.getInstance(mContext).setIcon(player.getSuperMario());
 		}
-		System.out.println("충돌");
-		crashCheck = true;
-
 	}
 }

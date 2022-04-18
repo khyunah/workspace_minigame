@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 public class Monster extends JLabel {
-
+	
 	private int monsterX;
 	private int monsterY;
 	private boolean left;
@@ -15,12 +15,11 @@ public class Monster extends JLabel {
 
 	private boolean leftCrash;
 	private boolean rightCrash;
-
+	
 	private ImageIcon enemyL;
 	private ImageIcon enemyR;
 	private ImageIcon enemy;
 	Player player;
-	private BackgroundMapService mapStervice;
 	private SuperMarioFrame mContext;
 
 	public Monster(int monsterX, int monsterY, SuperMarioFrame mContext) {
@@ -38,6 +37,7 @@ public class Monster extends JLabel {
 	}
 
 	private void initObject() {
+//		monsterBg = new BackgroundMonsterService(this);
 		enemyL = new ImageIcon("images/enemy_left.png");
 		enemyR = new ImageIcon("images/enemy_right.png");
 		enemy = enemyR;
@@ -52,6 +52,7 @@ public class Monster extends JLabel {
 
 		leftCrash = false;
 		rightCrash = false;
+		
 
 	}
 
@@ -94,7 +95,7 @@ public class Monster extends JLabel {
 	}
 
 	public void playerCrash() {
-		if (player.getX() - monsterX < 30 && monsterX - player.getX() < 30 && player.getY() - monsterY < 50) {
+		if ( (Math.abs(player.getX()-monsterX) < 45) && (Math.abs(player.getY() -monsterY) < 55)) {
 			System.out.println("게임 종료");
 			mContext.showGameoverImage();
 			
