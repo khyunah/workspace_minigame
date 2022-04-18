@@ -1,5 +1,6 @@
 package project_supermario_2;
 
+import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -59,6 +60,7 @@ public class SuperMarioFrame extends JFrame {
 	}
 
 	private void setInitLayout() {
+		panel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		bgMap.setLocation(pointX, pointY);
 		panel.add(bgMap);
 		setContentPane(panel);
