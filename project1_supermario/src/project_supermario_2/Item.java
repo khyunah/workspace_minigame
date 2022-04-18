@@ -35,7 +35,6 @@ public class Item extends JLabel {
 		this.service = player.getService();
 		initObject();
 		initSetting();
-//		crashGetMoney();
 	}
 
 	private void initObject() {
@@ -59,14 +58,7 @@ public class Item extends JLabel {
 		for (int i = 0; i < 10; i++) {
 			setIcon(itemMoney);
 			setLocation(itemX, itemY - (i * 5));
-			Robot r;
-			try {
-				r = new Robot();
-				r.keyPress(KeyEvent.VK_DOWN);
-				r.keyRelease(KeyEvent.VK_DOWN);
-			} catch (AWTException e) {
-				e.printStackTrace();
-			}
+			robotKeyEvent();
 			threadSleep(100);
 		}
 		removeBox();
@@ -76,6 +68,10 @@ public class Item extends JLabel {
 		threadSleep(1000);
 		setIcon(null);
 		itemContext = null;
+		robotKeyEvent();
+	}
+	
+	private void robotKeyEvent() {
 		Robot r;
 		try {
 			r = new Robot();

@@ -15,7 +15,7 @@ import lombok.Getter;
 @Getter
 public class SuperMarioFrame extends JFrame {
 
-	Image image = new ImageIcon("images/marioBackgroundMap.gif").getImage();
+	Image image = new ImageIcon("images/marioBackgroundMap.png").getImage();
 	Image changImg = image.getScaledInstance(7000, 500, Image.SCALE_SMOOTH);
 	ImageIcon changIcon = new ImageIcon(changImg);
 
@@ -29,10 +29,10 @@ public class SuperMarioFrame extends JFrame {
 	private Monster monster2;
 	private Monster monster3;
 	private Mushroom mushroom;
-	private boolean gameOver = false;
+	private boolean gameOver;
 
-	private int pointX = 0;
-	private int pointY = 0;
+	private int pointX;
+	private int pointY;
 
 	public SuperMarioFrame() {
 		initData();
@@ -47,14 +47,18 @@ public class SuperMarioFrame extends JFrame {
 		monster2 = new Monster(3900, 410, this);
 		monster3 = new Monster(5600, 410, this);
 		bgMap = new JLabel(changIcon);
-		mushroom = new Mushroom(this);
+//		mushroom = new Mushroom(this);
 		label = new JLabel(new ImageIcon("images/gameover.jpg"));
 		winImage = new JLabel(new ImageIcon("images/winImg.png"));
+
+		gameOver = false;
+		pointX = 0;
+		pointY = 0;
 
 		setSize(1500, 540);
 		setLocation(0, 0);
 		setVisible(true);
-		setResizable(true);
+		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
@@ -68,7 +72,7 @@ public class SuperMarioFrame extends JFrame {
 		bgMap.add(monster1);
 		bgMap.add(monster2);
 		bgMap.add(monster3);
-		bgMap.add(mushroom);
+//		bgMap.add(mushroom);
 	}
 
 	public void showGameoverImage() {
@@ -82,11 +86,7 @@ public class SuperMarioFrame extends JFrame {
 		bgMap.remove(mushroom);
 		this.repaint();
 
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		threadSleep(2000);
 		System.exit(0);
 	}
 
@@ -119,19 +119,16 @@ public class SuperMarioFrame extends JFrame {
 										if (pointX <= 0) {
 											pointX = pointX + 3;
 											bgMap.setLocation(pointX, pointY);
-											try {
-												Thread.sleep(10);
-											} catch (InterruptedException e) {
-												e.printStackTrace();
-											}
+											threadSleep(10);
 										}
+									}
+									if (!player.isLeft() && !player.isLeftWallCrash()) {
+										player.left();
 									}
 								}
 							}).start();
 						}
-						if (!player.isLeft() && !player.isLeftWallCrash()) {
-							player.left();
-						}
+						
 						break;
 
 					case KeyEvent.VK_RIGHT:
@@ -143,21 +140,16 @@ public class SuperMarioFrame extends JFrame {
 										if (pointX + 7000 >= 1500) {
 											pointX = pointX - 3;
 											bgMap.setLocation(pointX, pointY);
-											try {
-												Thread.sleep(10);
-											} catch (InterruptedException e) {
-												// TODO Auto-generated catch block
-												e.printStackTrace();
-											}
-
+											threadSleep(10);
 										}
+									}
+									if (!player.isRight() && !player.isRightWallCrash()) {
+										player.right();
 									}
 								}
 							}).start();
 						}
-						if (!player.isRight() && !player.isRightWallCrash()) {
-							player.right();
-						}
+						
 						break;
 
 					case KeyEvent.VK_UP:
@@ -166,11 +158,7 @@ public class SuperMarioFrame extends JFrame {
 							@Override
 							public void run() {
 								for (int i = 0; i < 7; i++) {
-									try {
-										Thread.sleep(10);
-									} catch (InterruptedException e) {
-										e.printStackTrace();
-									}
+									threadSleep(10);
 								}
 								if (!player.isUp() && !player.isDown()) {
 									player.up();
@@ -200,6 +188,14 @@ public class SuperMarioFrame extends JFrame {
 			}
 
 		});
+	}
+
+	private void threadSleep(int millis) {
+		try {
+			Thread.sleep(millis);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void main(String[] args) {

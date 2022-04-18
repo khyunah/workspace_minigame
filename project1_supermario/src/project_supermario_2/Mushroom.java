@@ -29,17 +29,15 @@ public class Mushroom extends JLabel implements Moveable {
 	public Mushroom(SuperMarioFrame mContext) {
 		this.mush = this;
 		this.mContext = mContext;
-		this.player = player.getInstance(this.mContext);
+		this.player = Player.getInstance(this.mContext);
 		initObject();
 		initSetting();
 		addEventListener();
-
 	}
 
 	private void initObject() {
 		mushroom = new ImageIcon("images/superMushroom.png");
 		mushroomObserver = new MushroomObserver(this);
-
 	}
 
 	private void initSetting() {
@@ -63,7 +61,6 @@ public class Mushroom extends JLabel implements Moveable {
 					try {
 						crashMushroom();
 					} catch (AWTException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					
@@ -79,15 +76,11 @@ public class Mushroom extends JLabel implements Moveable {
 						right();
 					}
 					
-
 					threadSleep(25);
 
 					setLocation(mushroomX, mushroomY);
-
 				}
-
 			}
-
 		}).start();
 
 	}
@@ -98,7 +91,6 @@ public class Mushroom extends JLabel implements Moveable {
 			try {
 				crashMushroom();
 			} catch (AWTException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			mushroomX--;
@@ -134,10 +126,8 @@ public class Mushroom extends JLabel implements Moveable {
 		try {
 			Thread.sleep(time);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
@@ -149,7 +139,7 @@ public class Mushroom extends JLabel implements Moveable {
 		if ((Math.abs(mushroomX - player.getX()) < 10)) {
 			mush.setVisible(false);
 			setIcon(null);
-			Player.getInstance(mContext).giant();
+//			Player.getInstance(mContext).giant();
 
 // 			player.setPlayerW(100);
 //			player.setPlayerH(120);

@@ -12,8 +12,6 @@ public class Player extends JLabel implements Moveable {
 	private int x;
 	private int y;
 
-	// 플레이어의 방향
-
 	// 움직임 상태
 	private boolean left;
 	private boolean right;
@@ -44,7 +42,7 @@ public class Player extends JLabel implements Moveable {
 
 	private boolean crashOk;
 
-	private boolean isDie = false;
+	private boolean isDie;
 
 	private Player(SuperMarioFrame mContext) {
 		this.mContext = mContext;
@@ -93,7 +91,6 @@ public class Player extends JLabel implements Moveable {
 		setIcon(player);
 		setSize(playerW, playerH);
 		setLocation(x, y);
-
 	}
 
 	// 이벤트 핸들러
@@ -119,10 +116,8 @@ public class Player extends JLabel implements Moveable {
 						initSleep(1);
 					}
 				}
-
 			}
 		}).start();
-
 	}
 
 	@Override
@@ -154,7 +149,6 @@ public class Player extends JLabel implements Moveable {
 				}
 			}
 		}).start();
-
 	}
 
 	// left + up , right + up
@@ -178,11 +172,7 @@ public class Player extends JLabel implements Moveable {
 							|| player.getDescription() == ("images/mario1_right.png")) {
 						player = jumpR;
 						setIcon(player);
-
-					} else {
-
 					}
-
 				}
 				if (player.getDescription() == "images/jump_left.png") {
 					player = playerL;

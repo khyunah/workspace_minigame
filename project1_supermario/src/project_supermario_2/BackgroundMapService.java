@@ -17,20 +17,19 @@ public class BackgroundMapService {
 	private final int BOTTOM_X = 25;
 	private final int BOTTOM_Y = 60;
 	private final int TOP_X = 25;
-	
+
 	private int crashX;
 	private int crashY;
 
 	private Player player;
 
 	// 성에 도착했을때 true
-	// true이면 이기는 화면 나오게 구현하기
 	private boolean isWin;
 
-	public boolean isWin() { 
+	public boolean isWin() {
 		return isWin;
 	}
-	
+
 	public int getCrashX() {
 		return crashX;
 	}
@@ -55,11 +54,6 @@ public class BackgroundMapService {
 		}
 	}
 
-	/**
-	 * todo check메소드 player에서 각각의 방향 if문으로 false처리 해주기
-	 * 
-	 * @return
-	 */
 	public boolean checkLeftWall() {
 		player.setLeftWallCrash(isWallCrashColor(LEFT_X));
 		player.setLeft(false);
@@ -80,12 +74,6 @@ public class BackgroundMapService {
 		isTopCrashColor();
 	}
 
-	/**
-	 * player 측면의 색상이 빨강색(==벽) 이거나 초록색(==굴뚝) 이면 움직임에 제한을 두기 위한 메소드
-	 * 
-	 * @param correctionPoint
-	 * @return
-	 */
 	private boolean isWallCrashColor(int correctionXPoint) {
 		try {
 			Color color = new Color(
@@ -138,7 +126,6 @@ public class BackgroundMapService {
 			int blue = color.getBlue();
 
 			if (red == 246 && green == 246 && blue == 246) {
-				System.out.println("서비스 탑 확인 ");
 				player.setCrashOk(true);
 				crashX = player.getX();
 				crashY = player.getY();
@@ -147,6 +134,7 @@ public class BackgroundMapService {
 				player.setUp(false);
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }
