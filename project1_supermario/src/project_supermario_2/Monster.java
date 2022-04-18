@@ -20,7 +20,6 @@ public class Monster extends JLabel {
 	private ImageIcon enemyR;
 	private ImageIcon enemy;
 	Player player;
-	private BackgroundMapService mapStervice;
 	private SuperMarioFrame mContext;
 
 	public Monster(int monsterX, int monsterY, SuperMarioFrame mContext) {
@@ -38,6 +37,7 @@ public class Monster extends JLabel {
 	}
 
 	private void initObject() {
+//		monsterBg = new BackgroundMonsterService(this);
 		enemyL = new ImageIcon("images/enemy_left.png");
 		enemyR = new ImageIcon("images/enemy_right.png");
 		enemy = enemyR;

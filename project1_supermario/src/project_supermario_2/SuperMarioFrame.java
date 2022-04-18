@@ -43,9 +43,9 @@ public class SuperMarioFrame extends JFrame {
 	private void initData() {
 		panel = new JPanel();
 		player = Player.getInstance(this);
-		monster1 = new Monster(200, 410, this);
-		monster2 = new Monster(700, 410, this);
-		monster3 = new Monster(1100, 410, this);
+		monster1 = new Monster(700, 410, this);
+		monster2 = new Monster(3900, 410, this);
+		monster3 = new Monster(5600, 410, this);
 		bgMap = new JLabel(changIcon);
 //		itemBox1 = new Item(player);
 //		itemBox2 = new Item(player);
@@ -94,9 +94,16 @@ public class SuperMarioFrame extends JFrame {
 	}
 
 	public void showWinImage() {
+		gameOver = true;
 		bgMap.add(winImage);
 		winImage.setBounds(-bgMap.getX(), 0, 1500, 540);
-		this.remove(player);
+		bgMap.remove(player);
+		bgMap.remove(monster1);
+		bgMap.remove(monster2);
+		bgMap.remove(monster3);
+		bgMap.remove(mushroom);
+		this.repaint();
+
 	}
 
 	private void initListener() {
