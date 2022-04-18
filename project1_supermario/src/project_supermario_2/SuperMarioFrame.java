@@ -1,6 +1,9 @@
 package project_supermario_2;
 
+import java.awt.FlowLayout;
 import java.awt.Image;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -9,7 +12,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class SuperMarioFrame extends JFrame {
+import lombok.Getter;
+
+@Getter
+public class SuperMarioFrame extends JFrame implements FocusListener{
 
 	Image image = new ImageIcon("images/marioBackgroundMap.gif").getImage();
 	Image changImg = image.getScaledInstance(7000, 500, Image.SCALE_SMOOTH);
@@ -26,11 +32,8 @@ public class SuperMarioFrame extends JFrame {
 	private Monster monster3;
 	private Mushroom mushroom;
 
-//	private Item itemBox1;
-//	private Item itemBox2;
-
-	int pointX = 0;
-	int pointY = 0;
+	private int pointX = 0;
+	private int pointY = 0;
 
 	public SuperMarioFrame() {
 		initData();
@@ -45,12 +48,10 @@ public class SuperMarioFrame extends JFrame {
 		monster2 = new Monster(700, 410, this);
 		monster3 = new Monster(1100, 410, this);
 		bgMap = new JLabel(changIcon);
-//		itemBox1 = new Item(player);
-//		itemBox2 = new Item(player);
 		mushroom = new Mushroom();
 		label = new JLabel(new ImageIcon("images/gameover.jpg"));
 		winImage = new JLabel(new ImageIcon("images/winImg.png"));
-		
+
 		setSize(1500, 540);
 		setLocation(0, 0);
 		setVisible(true);
@@ -60,25 +61,25 @@ public class SuperMarioFrame extends JFrame {
 	}
 
 	private void setInitLayout() {
-		bgMap.setLocation(0, 0);
+		panel.setLayout(new FlowLayout(FlowLayout.LEFT));
+		panel.setFocusable(false);
+		bgMap.setLocation(pointX, pointY);
 		panel.add(bgMap);
 		setContentPane(panel);
-		
+
 		bgMap.add(player);
-//		bgMap.add(itemBox1);
 
 		bgMap.add(monster1);
 		bgMap.add(monster2);
 		bgMap.add(monster3);
 		bgMap.add(mushroom);
-		
 	}
-	
+
 	public void showGameoverImage() {
 		bgMap.add(label);
 		label.setBounds(-bgMap.getX(),0, 1500, 540);
-		player.setIcon(null);
-		player = null;
+//		player.setIcon(null);
+//		player = null;
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
@@ -88,20 +89,19 @@ public class SuperMarioFrame extends JFrame {
 		System.exit(0);
 //		System.exit(0);
 	}
-	
+
 	public void showWinImage() {
 		bgMap.add(winImage);
 		winImage.setBounds(-bgMap.getX(), 0, 1500, 540);
-		player.setIcon(null);
-		player = null;
 	}
 
-
 	private void initListener() {
+		addFocusListener(this);
 		addKeyListener(new KeyAdapter() {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
+				requestFocus();
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_LEFT:
 					if (!player.getService().checkLeftWall()) {
@@ -168,11 +168,12 @@ public class SuperMarioFrame extends JFrame {
 							if (!player.isUp() && !player.isDown()) {
 								player.up();
 							}
-//							if (player.isCrashOk()) {
-//								itemBox1.crashGetMoney();
-//							}
 						}
 					}).start();
+					break;
+				case KeyEvent.VK_DOWN:
+					bgMap.setLocation(pointX, pointY);
+					break;
 				}
 			}
 
@@ -189,11 +190,23 @@ public class SuperMarioFrame extends JFrame {
 					break;
 				}
 			}
-			
+
 		});
 	}
 
 	public static void main(String[] args) {
 		new SuperMarioFrame();
+	}
+
+	@Override
+	public void focusGained(FocusEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void focusLost(FocusEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

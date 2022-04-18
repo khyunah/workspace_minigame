@@ -12,26 +12,40 @@ public class BackgroundMapService {
 	private BufferedImage bgServiceImage;
 
 	private final int LEFT_X = 0;
-	private final int LEFT_Y = 55;
+	private final int LEFTANDRIGHT_Y = 50;
 	private final int RIGHT_X = 50;
 	private final int BOTTOM_X = 25;
 	private final int BOTTOM_Y = 60;
 	private final int TOP_X = 25;
+	
+	
+
+	private int crashX;
+	private int crashY;
 
 	private Player player;
-	Item item;
+	
 
 	// 성에 도착했을때 true
 	// true이면 이기는 화면 나오게 구현하기
 	private boolean isWin;
-	
+
 	public boolean isWin() {
 		return isWin;
+	}
+	
+	public int getCrashX() {
+		return crashX;
+	}
+
+	public int getCrashY() {
+		return crashY;
 	}
 
 	public BackgroundMapService(Player player) {
 		this.player = player;
-		item = new Item(player);
+		crashX = 0;
+		crashY = 0;
 		initObject();
 	}
 
@@ -65,8 +79,8 @@ public class BackgroundMapService {
 		isBottomCrashColor();
 	}
 
-	public void checkTopColor(Item item) {
-		isTopCrashColor(item);
+	public void checkTopColor() {
+		isTopCrashColor();
 	}
 
 	/**
@@ -77,22 +91,20 @@ public class BackgroundMapService {
 	 */
 	private boolean isWallCrashColor(int correctionXPoint) {
 		try {
-			Color color = new Color(bgServiceImage.getRGB(player.getX() + correctionXPoint, player.getY() + LEFT_Y));
+			Color color = new Color(
+					bgServiceImage.getRGB(player.getX() + correctionXPoint, player.getY() + LEFTANDRIGHT_Y));
 			int red = color.getRed();
 			int green = color.getGreen();
 			int blue = color.getBlue();
 
 			// 부딪히는 색상이 빨강색일때 true
 			if (red == 255 && green == 0 && blue == 0) {
-				System.out.println("빨강벽 접촉 ");
-				System.out.println(color);
 				return true;
 				// 부딪히는 색상이 파랑색일때 ( == 게임 마지막 성에 도착했을때 )
 			} else if (red == 92 && green == 92 && blue == 255) {
 				isWin = true;
 				return false;
 			}
-			System.out.println(color);
 
 		} catch (Exception e) {
 		}
@@ -118,7 +130,7 @@ public class BackgroundMapService {
 		}
 	}
 
-	private void isTopCrashColor(Item item) {
+	private void isTopCrashColor() {
 		try {
 			Color color = new Color(bgServiceImage.getRGB(player.getX() + TOP_X, player.getY()));
 			int red = color.getRed();
@@ -126,10 +138,10 @@ public class BackgroundMapService {
 			int blue = color.getBlue();
 
 			if (red == 246 && green == 246 && blue == 246) {
-//				if ((item.getX() + 32) - player.getX() <= 10) {
-//					item.setIcon(null);
-//				}
-//				player.setCrashOk(true);
+				System.out.println("서비스 탑 확인 ");
+				player.setCrashOk(true);
+				crashX = player.getX();
+				crashY = player.getY();
 			}
 			if (!(red == 255 && green == 255 && blue == 255)) {
 				player.setUp(false);

@@ -39,8 +39,6 @@ public class Player extends JLabel implements Moveable {
 
 	private BackgroundMapService service;
 
-	Item item;
-
 	private boolean crashOk;
 
 	boolean isDie;
@@ -69,7 +67,6 @@ public class Player extends JLabel implements Moveable {
 		jumpL = new ImageIcon("images/jump_left.png");
 		player = playerR;
 		service = new BackgroundMapService(this);
-		item = new Item(this);
 	}
 
 	private void initSetting() {
@@ -133,7 +130,7 @@ public class Player extends JLabel implements Moveable {
 				while (right) {
 					if(service.isWin()) {
 						mContext.showWinImage();
-					};
+					}
 					if (!service.checkRightWall()) {
 						service.checkRightWall();
 						service.checkBottomColor();
@@ -162,7 +159,7 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				for (int i = 0; i < (150/ JUMPSPEED); i++) {
-					service.checkTopColor(item);
+					service.checkTopColor();
 					service.checkBottomColor();
 					y = y - JUMPSPEED;
 					setLocation(x, y);
@@ -188,6 +185,10 @@ public class Player extends JLabel implements Moveable {
 					player = playerR;
 					setIcon(player);
 				}
+				if(crashOk) {
+					getMoney();
+				}
+				crashOk = false;
 
 				up = false;
 				down();
@@ -211,13 +212,26 @@ public class Player extends JLabel implements Moveable {
 							mContext.showGameoverImage();
 						}
 						service.checkBottomColor();
-						System.out.println(y);
 						y = y + JUMPSPEED;
 						setLocation(x, y);
 						initSleep(3);
 					}
 				}
 				down = false;
+			}
+		}).start();
+	}
+	
+	private void getMoney() {
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				System.out.println("겟머니 메서드 안에 들어옴");
+				Item item = new Item(mContext);
+				mContext.getBgMap().add(item);
+				item.crashGetMoney();
+				System.out.println("============");
 			}
 		}).start();
 	}
@@ -229,5 +243,4 @@ public class Player extends JLabel implements Moveable {
 			e.printStackTrace();
 		}
 	}
-	
 }
