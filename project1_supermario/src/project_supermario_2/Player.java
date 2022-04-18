@@ -122,6 +122,7 @@ public class Player extends JLabel implements Moveable {
 
 	@Override
 	public void right() {
+		System.out.println(y);
 		right = true;
 		new Thread(new Runnable() {
 
@@ -214,6 +215,24 @@ public class Player extends JLabel implements Moveable {
 				down = false;
 			}
 		}).start();
+	}
+	
+	public void enterChimney() {
+		if(x > 1855 && x < 1905 && y <= 255) {
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					x = 5395;
+					y = 325;
+					for (int i = 0; i < 50; i++) {
+						setSize(i, 10 + i);
+						setLocation(x, y);
+						initSleep(5);
+					}
+				}
+			}).start();
+		}
 	}
 	
 	private void getMoney() {

@@ -93,7 +93,6 @@ public class BackgroundMapService {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 		return false;
 	}
@@ -114,7 +113,6 @@ public class BackgroundMapService {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -134,7 +132,6 @@ public class BackgroundMapService {
 				player.setUp(false);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 }

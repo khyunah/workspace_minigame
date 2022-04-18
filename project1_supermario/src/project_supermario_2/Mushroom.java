@@ -139,7 +139,7 @@ public class Mushroom extends JLabel implements Moveable {
 		if ((Math.abs(mushroomX - player.getX()) < 10)) {
 			mush.setVisible(false);
 			setIcon(null);
-			Player.getInstance(mContext).giant();
+//			Player.getInstance(mContext).giant();
 
 // 			player.setPlayerW(100);
 //			player.setPlayerH(120);

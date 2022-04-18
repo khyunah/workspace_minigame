@@ -47,7 +47,7 @@ public class SuperMarioFrame extends JFrame {
 		monster2 = new Monster(3900, 410, this);
 		monster3 = new Monster(5600, 410, this);
 		bgMap = new JLabel(changIcon);
-//		mushroom = new Mushroom(this);
+		mushroom = new Mushroom(this);
 		label = new JLabel(new ImageIcon("images/gameover.jpg"));
 		winImage = new JLabel(new ImageIcon("images/winImg.png"));
 
@@ -122,13 +122,13 @@ public class SuperMarioFrame extends JFrame {
 											threadSleep(10);
 										}
 									}
-									if (!player.isLeft() && !player.isLeftWallCrash()) {
-										player.left();
-									}
+
 								}
 							}).start();
 						}
-						
+						if (!player.isLeft() && !player.isLeftWallCrash()) {
+							player.left();
+						}
 						break;
 
 					case KeyEvent.VK_RIGHT:
@@ -140,16 +140,16 @@ public class SuperMarioFrame extends JFrame {
 										if (pointX + 7000 >= 1500) {
 											pointX = pointX - 3;
 											bgMap.setLocation(pointX, pointY);
+											System.out.println(pointX);
 											threadSleep(10);
 										}
-									}
-									if (!player.isRight() && !player.isRightWallCrash()) {
-										player.right();
 									}
 								}
 							}).start();
 						}
-						
+						if (!player.isRight() && !player.isRightWallCrash()) {
+							player.right();
+						}
 						break;
 
 					case KeyEvent.VK_UP:
@@ -167,6 +167,11 @@ public class SuperMarioFrame extends JFrame {
 						}).start();
 						break;
 					case KeyEvent.VK_DOWN:
+						pointX = -5139;
+						bgMap.setLocation(pointX, pointY);
+						player.enterChimney();
+						break;
+					case KeyEvent.VK_Z:
 						bgMap.setLocation(pointX, pointY);
 						break;
 					}

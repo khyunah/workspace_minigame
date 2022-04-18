@@ -71,8 +71,8 @@ public class Item extends JLabel {
 		Robot r;
 		try {
 			r = new Robot();
-			r.keyPress(KeyEvent.VK_DOWN);
-			r.keyRelease(KeyEvent.VK_DOWN);
+			r.keyPress(KeyEvent.VK_Z);
+			r.keyRelease(KeyEvent.VK_Z);
 		} catch (AWTException e) {
 			e.printStackTrace();
 		}
