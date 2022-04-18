@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 public class Monster extends JLabel {
-
+	
 	private int monsterX;
 	private int monsterY;
 	private boolean left;
@@ -15,7 +15,7 @@ public class Monster extends JLabel {
 
 	private boolean leftCrash;
 	private boolean rightCrash;
-
+	
 	private ImageIcon enemyL;
 	private ImageIcon enemyR;
 	private ImageIcon enemy;
@@ -52,6 +52,7 @@ public class Monster extends JLabel {
 
 		leftCrash = false;
 		rightCrash = false;
+		
 
 	}
 
@@ -94,7 +95,7 @@ public class Monster extends JLabel {
 	}
 
 	public void playerCrash() {
-		if (player.getX() - monsterX < 30 && monsterX - player.getX() < 30 && player.getY() - monsterY < 50) {
+		if ( (Math.abs(player.getX()-monsterX) < 25) && (Math.abs(player.getY() -monsterY) < 30)) {
 			System.out.println("게임 종료");
 			mContext.showGameoverImage();
 			

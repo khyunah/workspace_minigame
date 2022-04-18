@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 public class Player extends JLabel implements Moveable {
-
+		
 	// 위치 상태
 	private int x;
 	private int y;
@@ -22,7 +22,7 @@ public class Player extends JLabel implements Moveable {
 
 	// 플레이어 속도 상태
 	private final int SPEED = 12;
-	private final int JUMPSPEED = 3;
+	private final int JUMPSPEED = 5;
 
 	// 벽에 충돌한 상태
 	private boolean leftWallCrash;
@@ -43,7 +43,7 @@ public class Player extends JLabel implements Moveable {
 
 	private boolean crashOk;
 
-	boolean isDie;
+	private boolean isDie = false;
 
 	private Player(SuperMarioFrame mContext) {
 		this.mContext = mContext;
@@ -161,8 +161,8 @@ public class Player extends JLabel implements Moveable {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				for (int i = 0; i < (150/ JUMPSPEED); i++) {
-					service.checkTopColor(item);
+				for (int i = 0; i < (250/ JUMPSPEED); i++) {
+					service.checkTopColor();
 					service.checkBottomColor();
 					y = y - JUMPSPEED;
 					setLocation(x, y);
@@ -205,7 +205,6 @@ public class Player extends JLabel implements Moveable {
 					if (y < 600) {
 
 						if (y > 550) {
-							isDie = true;
 //							mContext.image = new ImageIcon("images/gameover.jpg").getImage();
 //							mContext.repaint();
 							mContext.showGameoverImage();
