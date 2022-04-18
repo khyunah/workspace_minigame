@@ -30,7 +30,7 @@ public class Monster extends JLabel {
 		initBackgroundMonsterService();
 		initObject();
 		initSetting();
-		addEventListener();
+//		addEventListener();
 	}
 
 	private void initBackgroundMonsterService() {
@@ -55,50 +55,51 @@ public class Monster extends JLabel {
 
 	}
 
-	private void addEventListener() {
-		setIcon(enemy);
-		new Thread(new Runnable() {
-			boolean direction;
+//	private void addEventListener() {
+//		setIcon(enemy);
+//		new Thread(new Runnable() {
+//			boolean direction;
+//
+//			@Override
+//			public void run() {
+//				setIcon(enemy);
+//				while (true) {
+//					if (leftCrash) {
+//						direction = true;
+//					}
+//					if (rightCrash) {
+//						direction = false;
+//					}
+//					if (direction) {
+//						setIcon(enemyR);
+//						monsterX = monsterX + 10;
+//						setLocation(monsterX, monsterY);
+////						playerCrash();
+//					} else {
+//						setIcon(enemyL);
+//						monsterX = monsterX - 10;
+//						setLocation(monsterX, monsterY);
+////						playerCrash();
+//
+//					}
+//					try {
+//						Thread.sleep(300);
+//					} catch (InterruptedException e) {
+//						e.printStackTrace();
+//					}
+//				}
+//
+//			}
+//		}).start();
+//	}
 
-			@Override
-			public void run() {
-				setIcon(enemy);
-				while (true) {
-					if (leftCrash) {
-						direction = true;
-					}
-					if (rightCrash) {
-						direction = false;
-					}
-					if (direction) {
-						setIcon(enemyR);
-						monsterX = monsterX + 10;
-						setLocation(monsterX, monsterY);
-						playerCrash();
-					} else {
-						setIcon(enemyL);
-						monsterX = monsterX - 10;
-						setLocation(monsterX, monsterY);
-						playerCrash();
-
-					}
-					try {
-						Thread.sleep(300);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-
-			}
-		}).start();
-	}
-
-	public void playerCrash() {
-		if (player.getX() - monsterX < 30 && monsterX - player.getX() < 30 && player.getY() - monsterY < 50) {
-			System.out.println("게임 종료");
-			mContext.showGameoverImage();
-			
-		}
-	}
+//	public void playerCrash() {
+//		if (player.getX() - monsterX < 30 && monsterX - player.getX() < 30 && player.getY() - monsterY < 50) {
+//			System.out.println("게임 종료");
+//			mContext.showGameoverImage();
+//			
+//			
+//		}
+//	}
 
 }

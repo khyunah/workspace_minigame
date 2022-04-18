@@ -12,7 +12,7 @@ public class BackgroundMapService {
 	private BufferedImage bgServiceImage;
 
 	private final int LEFT_X = 0;
-	private final int LEFT_Y = 55;
+	private final int LEFT_Y = 50;
 	private final int RIGHT_X = 50;
 	private final int BOTTOM_X = 25;
 	private final int BOTTOM_Y = 60;
@@ -25,7 +25,7 @@ public class BackgroundMapService {
 	// true이면 이기는 화면 나오게 구현하기
 	private boolean isWin;
 	
-	public boolean isWin() {
+	public boolean isWin() { 
 		return isWin;
 	}
 
@@ -92,9 +92,9 @@ public class BackgroundMapService {
 				isWin = true;
 				return false;
 			}
-			System.out.println(color);
 
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return false;
 	}
@@ -115,6 +115,7 @@ public class BackgroundMapService {
 				}
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

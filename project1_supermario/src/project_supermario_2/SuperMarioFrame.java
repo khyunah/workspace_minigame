@@ -1,5 +1,6 @@
 package project_supermario_2;
 
+import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -9,6 +10,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
 public class SuperMarioFrame extends JFrame {
 
 	Image image = new ImageIcon("images/marioBackgroundMap.gif").getImage();
@@ -24,7 +31,7 @@ public class SuperMarioFrame extends JFrame {
 	private Monster monster1;
 	private Monster monster2;
 	private Monster monster3;
-	private Mushroom mushroom;
+	public Mushroom mushroom;
 
 //	private Item itemBox1;
 //	private Item itemBox2;
@@ -47,7 +54,7 @@ public class SuperMarioFrame extends JFrame {
 		bgMap = new JLabel(changIcon);
 //		itemBox1 = new Item(player);
 //		itemBox2 = new Item(player);
-		mushroom = new Mushroom();
+		mushroom = new Mushroom(this);
 		label = new JLabel(new ImageIcon("images/gameover.jpg"));
 		winImage = new JLabel(new ImageIcon("images/winImg.png"));
 		
@@ -60,6 +67,7 @@ public class SuperMarioFrame extends JFrame {
 	}
 
 	private void setInitLayout() {
+		setLayout(new FlowLayout());
 		bgMap.setLocation(0, 0);
 		panel.add(bgMap);
 		setContentPane(panel);
@@ -72,29 +80,30 @@ public class SuperMarioFrame extends JFrame {
 		bgMap.add(monster3);
 		bgMap.add(mushroom);
 		
+		
 	}
 	
 	public void showGameoverImage() {
 		bgMap.add(label);
 		label.setBounds(-bgMap.getX(),0, 1500, 540);
-		player.setIcon(null);
-		player = null;
+//		player.setIcon(null);
+//		player = null;
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.exit(0);
+//		System.exit(0);
 //		System.exit(0);
 	}
 	
-	public void showWinImage() {
-		bgMap.add(winImage);
-		winImage.setBounds(-bgMap.getX(), 0, 1500, 540);
-		player.setIcon(null);
-		player = null;
-	}
+//	public void showWinImage() {
+//		bgMap.add(winImage);
+//		winImage.setBounds(-bgMap.getX(), 0, 1500, 540);
+//		player.setIcon(null);
+//		player = null;
+//	}
 
 
 	private void initListener() {
