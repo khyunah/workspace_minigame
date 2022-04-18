@@ -43,6 +43,8 @@ public class Player extends JLabel implements Moveable {
 	private boolean crashOk;
 
 	private boolean isDie;
+	
+	private boolean enter;
 
 	private Player(SuperMarioFrame mContext) {
 		this.mContext = mContext;
@@ -87,6 +89,7 @@ public class Player extends JLabel implements Moveable {
 
 		crashOk = false;
 		isDie = false;
+		enter = false;
 
 		setIcon(player);
 		setSize(playerW, playerH);
@@ -122,7 +125,6 @@ public class Player extends JLabel implements Moveable {
 
 	@Override
 	public void right() {
-		System.out.println(y);
 		right = true;
 		new Thread(new Runnable() {
 
@@ -159,7 +161,7 @@ public class Player extends JLabel implements Moveable {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				for (int i = 0; i < (250/ JUMPSPEED); i++) {
+				for (int i = 0; i < (200/ JUMPSPEED); i++) {
 					service.checkTopColor();
 					service.checkBottomColor();
 					y = y - JUMPSPEED;
@@ -218,21 +220,23 @@ public class Player extends JLabel implements Moveable {
 	}
 	
 	public void enterChimney() {
+		enter = true;
 		if(x > 1855 && x < 1905 && y <= 255) {
 			new Thread(new Runnable() {
 				
 				@Override
 				public void run() {
 					x = 5395;
-					y = 325;
+					y = 320;
 					for (int i = 0; i < 50; i++) {
 						setSize(i, 10 + i);
 						setLocation(x, y);
-						initSleep(5);
+						initSleep(10);
 					}
 				}
 			}).start();
 		}
+//		enter = false;
 	}
 	
 	private void getMoney() {
@@ -247,11 +251,11 @@ public class Player extends JLabel implements Moveable {
 		}).start();
 	}
 
-	public void giant() {
-		this.setSize(playerW + 50, playerH + 60);
-		ImageIcon supermario = new ImageIcon("images/Sjump_right.png");
-		setIcon(supermario);
-	}
+//	public void giant() {
+//		this.setSize(playerW + 50, playerH + 60);
+//		ImageIcon supermario = new ImageIcon("images/Sjump_right.png");
+//		setIcon(supermario);
+//	}
 
 	public void initSleep(int sleepNum) {
 		try {

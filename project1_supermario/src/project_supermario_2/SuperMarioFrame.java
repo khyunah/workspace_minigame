@@ -140,7 +140,6 @@ public class SuperMarioFrame extends JFrame {
 										if (pointX + 7000 >= 1500) {
 											pointX = pointX - 3;
 											bgMap.setLocation(pointX, pointY);
-											System.out.println(pointX);
 											threadSleep(10);
 										}
 									}
@@ -167,9 +166,12 @@ public class SuperMarioFrame extends JFrame {
 						}).start();
 						break;
 					case KeyEvent.VK_DOWN:
-						pointX = -5139;
-						bgMap.setLocation(pointX, pointY);
 						player.enterChimney();
+						if(player.isEnter()) {
+							pointX = -5139;
+							bgMap.setLocation(pointX, pointY);
+						}
+						player.setEnter(false);
 						break;
 					case KeyEvent.VK_Z:
 						bgMap.setLocation(pointX, pointY);

@@ -12,10 +12,10 @@ public class BackgroundMapService {
 	private BufferedImage bgServiceImage;
 
 	private final int LEFT_X = 0;
-	private final int LEFTANDRIGHT_Y = 50;
+	private final int LEFTANDRIGHT_Y = 45;
 	private final int RIGHT_X = 50;
 	private final int BOTTOM_X = 25;
-	private final int BOTTOM_Y = 60;
+	private final int BOTTOM_Y = 65;
 	private final int TOP_X = 25;
 
 	private int crashX;
@@ -83,11 +83,13 @@ public class BackgroundMapService {
 			int green = color.getGreen();
 			int blue = color.getBlue();
 
+			System.out.println(color);
 			// 부딪히는 색상이 빨강색일때 true
 			if (red == 255 && green == 0 && blue == 0) {
 				return true;
 				// 부딪히는 색상이 파랑색일때 ( == 게임 마지막 성에 도착했을때 )
-			} else if (red == 92 && green == 92 && blue == 255) {
+			} else if (red == 172 && green == 172 && blue == 255) {
+				// 92 92 255 
 				isWin = true;
 				return false;
 			}
@@ -123,7 +125,8 @@ public class BackgroundMapService {
 			int green = color.getGreen();
 			int blue = color.getBlue();
 
-			if (red == 246 && green == 246 && blue == 246) {
+			if (red == 0 && green == 0 && blue == 0) {
+				// 246 246 246
 				player.setCrashOk(true);
 				crashX = player.getX();
 				crashY = player.getY();
