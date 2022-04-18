@@ -72,7 +72,7 @@ public class SuperMarioFrame extends JFrame {
 		bgMap.add(monster1);
 		bgMap.add(monster2);
 		bgMap.add(monster3);
-//		bgMap.add(mushroom);
+		bgMap.add(mushroom);
 	}
 
 	public void showGameoverImage() {

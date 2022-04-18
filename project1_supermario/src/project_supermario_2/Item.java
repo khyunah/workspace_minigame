@@ -16,10 +16,7 @@ public class Item extends JLabel {
 
 	private Item itemContext = this;
 
-	private ImageIcon itemBox;
-	private ImageIcon box;
 	private ImageIcon itemMoney;
-	private ImageIcon superMushroom;
 
 	private Player player;
 	private BackgroundMapService service;
@@ -38,8 +35,6 @@ public class Item extends JLabel {
 	}
 
 	private void initObject() {
-		itemBox = new ImageIcon("images/itemBox.png");
-		box = new ImageIcon("images/box.png");
 		itemMoney = new ImageIcon("images/itemMoney.png");
 	}
 
@@ -48,7 +43,7 @@ public class Item extends JLabel {
 		itemX = service.getCrashX() + 10;
 		itemY = service.getCrashY() - 50;
 
-		setIcon(itemBox);
+		setIcon(itemMoney);
 		setSize(32, 32);
 		setLocation(itemX, itemY);
 	}
@@ -68,6 +63,7 @@ public class Item extends JLabel {
 		threadSleep(1000);
 		setIcon(null);
 		itemContext = null;
+		mContext.repaint();
 		robotKeyEvent();
 	}
 	
