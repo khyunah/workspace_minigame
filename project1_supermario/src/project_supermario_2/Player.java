@@ -21,7 +21,7 @@ public class Player extends JLabel implements Moveable {
 	private boolean down;
 
 	// 플레이어 속도 상태
-	private final int SPEED = 12;
+	private final int SPEED = 13;
 	private final int JUMPSPEED = 5;
 
 	// 벽에 충돌한 상태
