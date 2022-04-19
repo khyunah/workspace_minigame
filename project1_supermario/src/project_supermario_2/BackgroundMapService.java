@@ -12,26 +12,36 @@ public class BackgroundMapService {
 	private BufferedImage bgServiceImage;
 
 	private final int LEFT_X = 0;
-	private final int LEFTANDRIGHT_Y = 50;
+	private final int LEFTANDRIGHT_Y = 45;
 	private final int RIGHT_X = 50;
 	private final int BOTTOM_X = 25;
-	private final int BOTTOM_Y = 60;
+	private final int BOTTOM_Y = 65;
 	private final int TOP_X = 25;
 
+	private int crashX;
+	private int crashY;
+
 	private Player player;
-	Item item;
 
 	// 성에 도착했을때 true
-	// true이면 이기는 화면 나오게 구현하기
 	private boolean isWin;
-	
+
 	public boolean isWin() {
 		return isWin;
 	}
 
+	public int getCrashX() {
+		return crashX;
+	}
+
+	public int getCrashY() {
+		return crashY;
+	}
+
 	public BackgroundMapService(Player player) {
 		this.player = player;
-		item = new Item(player);
+		crashX = 0;
+		crashY = 0;
 		initObject();
 	}
 
@@ -44,11 +54,6 @@ public class BackgroundMapService {
 		}
 	}
 
-	/**
-	 * todo check메소드 player에서 각각의 방향 if문으로 false처리 해주기
-	 * 
-	 * @return
-	 */
 	public boolean checkLeftWall() {
 		player.setLeftWallCrash(isWallCrashColor(LEFT_X));
 		player.setLeft(false);
@@ -69,30 +74,25 @@ public class BackgroundMapService {
 		isTopCrashColor();
 	}
 
-	/**
-	 * player 측면의 색상이 빨강색(==벽) 이거나 초록색(==굴뚝) 이면 움직임에 제한을 두기 위한 메소드
-	 * 
-	 * @param correctionPoint
-	 * @return
-	 */
 	private boolean isWallCrashColor(int correctionXPoint) {
 		try {
-			Color color = new Color(bgServiceImage.getRGB(player.getX() + correctionXPoint, player.getY() + LEFTANDRIGHT_Y));
+			Color color = new Color(
+					bgServiceImage.getRGB(player.getX() + correctionXPoint, player.getY() + LEFTANDRIGHT_Y));
+
 			int red = color.getRed();
 			int green = color.getGreen();
 			int blue = color.getBlue();
 
+			System.out.println(color);
 			// 부딪히는 색상이 빨강색일때 true
 			if (red == 255 && green == 0 && blue == 0) {
-				System.out.println("빨강벽 접촉 ");
-				System.out.println(color);
 				return true;
 				// 부딪히는 색상이 파랑색일때 ( == 게임 마지막 성에 도착했을때 )
-			} else if (red == 92 && green == 92 && blue == 255) {
+			} else if (red == 172 && green == 172 && blue == 255) {
+				// 92 92 255 
 				isWin = true;
 				return false;
-			} 
-			System.out.println(color);
+			}
 
 		} catch (Exception e) {
 		}
@@ -125,11 +125,11 @@ public class BackgroundMapService {
 			int green = color.getGreen();
 			int blue = color.getBlue();
 
-			if (red == 246 && green == 246 && blue == 246) {
-//				if ((item.getX() + 32) - player.getX() <= 10) {
-//					item.setIcon(null);
-//				}
-//				player.setCrashOk(true);
+			if (red == 0 && green == 0 && blue == 0) {
+				// 246 246 246
+				player.setCrashOk(true);
+				crashX = player.getX();
+				crashY = player.getY();
 			}
 			if (!(red == 255 && green == 255 && blue == 255)) {
 				player.setUp(false);

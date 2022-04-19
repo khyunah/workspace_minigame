@@ -1,5 +1,9 @@
 package project_supermario_2;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -8,64 +12,75 @@ import lombok.Data;
 @Data
 public class Item extends JLabel {
 
+	private SuperMarioFrame mContext;
+
 	private Item itemContext = this;
-	
-	private ImageIcon itemBox;
-	private ImageIcon box;
+
 	private ImageIcon itemMoney;
-	private ImageIcon superMushroom;
 
 	private Player player;
+	private BackgroundMapService service;
+
+	private int itemX;
+	private int itemY;
 
 	private boolean crashOk;
 
-	public Item(Player player) {
-		this.player = player;
+	public Item(SuperMarioFrame mContext) {
+		this.mContext = mContext;
+		this.player = mContext.getPlayer();
+		this.service = player.getService();
 		initObject();
 		initSetting();
 	}
 
 	private void initObject() {
-		itemBox = new ImageIcon("images/itemBox.png");
-		box = new ImageIcon("images/box.png");
 		itemMoney = new ImageIcon("images/itemMoney.png");
-		superMushroom = new ImageIcon("images/superMushroom.png");
 	}
 
 	private void initSetting() {
 		crashOk = false;
+		itemX = service.getCrashX() + 10;
+		itemY = service.getCrashY() - 50;
 
-		setIcon(itemBox);
+		setIcon(itemMoney);
 		setSize(32, 32);
-		setLocation(695, 305);
+		setLocation(itemX, itemY);
 	}
 
 	public void crashGetMoney() {
-		if (player.isCrashOk()) {
-			try {
-				Thread.sleep(200);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			for (int i = 0; i < 10; i++) {
-				setIcon(itemMoney);
-
-				setLocation(695, 305 - (i * 5));
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-			removeBox();
+		threadSleep(200);
+		for (int i = 0; i < 10; i++) {
+			setIcon(itemMoney);
+			setLocation(itemX, itemY - (i * 5));
+			robotKeyEvent();
+			threadSleep(100);
 		}
-		player.setCrashOk(false);
+		removeBox();
 	}
-	public void removeBox() {
+
+	private void removeBox() {
+		threadSleep(1000);
+		setIcon(null);
+		itemContext = null;
+		mContext.repaint();
+		robotKeyEvent();
+	}
+	
+	private void robotKeyEvent() {
+		Robot r;
 		try {
-			Thread.sleep(1000);
-			setIcon(null);
-			itemContext = null;
+			r = new Robot();
+			r.keyPress(KeyEvent.VK_Z);
+			r.keyRelease(KeyEvent.VK_Z);
+		} catch (AWTException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void threadSleep(int millis) {
+		try {
+			Thread.sleep(millis);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

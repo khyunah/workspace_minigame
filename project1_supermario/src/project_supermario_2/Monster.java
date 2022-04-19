@@ -95,7 +95,7 @@ public class Monster extends JLabel {
 	}
 
 	public void playerCrash() {
-		if ( (Math.abs(player.getX()-monsterX) < 25) && (Math.abs(player.getY() -monsterY) < 30)) {
+		if ( (Math.abs(player.getX()-monsterX) < 45) && (Math.abs(player.getY() -monsterY) < 55)) {
 			System.out.println("게임 종료");
 			mContext.showGameoverImage();
 			
