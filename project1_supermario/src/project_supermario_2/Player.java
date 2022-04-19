@@ -19,7 +19,7 @@ public class Player extends JLabel implements Moveable {
 	private boolean down;
 
 	// 플레이어 속도 상태
-	private final int SPEED = 13;
+	private final int SPEED = 12;
 	private final int JUMPSPEED = 5;
 
 	// 벽에 충돌한 상태
@@ -220,8 +220,8 @@ public class Player extends JLabel implements Moveable {
 	}
 	
 	public void enterChimney() {
-		enter = true;
 		if(x > 1855 && x < 1905 && y <= 255) {
+			enter = true;
 			new Thread(new Runnable() {
 				
 				@Override
@@ -236,7 +236,6 @@ public class Player extends JLabel implements Moveable {
 				}
 			}).start();
 		}
-//		enter = false;
 	}
 	
 	private void getMoney() {
@@ -247,15 +246,10 @@ public class Player extends JLabel implements Moveable {
 				Item item = new Item(mContext);
 				mContext.getBgMap().add(item);
 				item.crashGetMoney();
+				
 			}
 		}).start();
 	}
-
-//	public void giant() {
-//		this.setSize(playerW + 50, playerH + 60);
-//		ImageIcon supermario = new ImageIcon("images/Sjump_right.png");
-//		setIcon(supermario);
-//	}
 
 	public void initSleep(int sleepNum) {
 		try {

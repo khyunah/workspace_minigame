@@ -4,6 +4,7 @@ import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -25,9 +26,7 @@ public class SuperMarioFrame extends JFrame {
 
 	private JLabel bgMap;
 	private Player player;
-	private Monster monster1;
-	private Monster monster2;
-	private Monster monster3;
+	Monster[] monsters = new Monster[3];
 	private Mushroom mushroom;
 	private boolean gameOver;
 
@@ -43,9 +42,9 @@ public class SuperMarioFrame extends JFrame {
 	private void initData() {
 		panel = new JPanel();
 		player = Player.getInstance(this);
-		monster1 = new Monster(700, 410, this);
-		monster2 = new Monster(3900, 410, this);
-		monster3 = new Monster(5600, 410, this);
+		monsters[0] = new Monster(700, 410, this);
+		monsters[1] = new Monster(3900, 410, this);
+		monsters[2] = new Monster(5600, 410, this);
 		bgMap = new JLabel(changIcon);
 		mushroom = new Mushroom(this);
 		label = new JLabel(new ImageIcon("images/gameover.jpg"));
@@ -69,9 +68,9 @@ public class SuperMarioFrame extends JFrame {
 		panel.add(bgMap);
 		setContentPane(panel);
 		bgMap.add(player);
-		bgMap.add(monster1);
-		bgMap.add(monster2);
-		bgMap.add(monster3);
+		for (int i = 0; i < monsters.length; i++) {
+			bgMap.add(monsters[i]);
+		}
 		bgMap.add(mushroom);
 	}
 
@@ -80,9 +79,9 @@ public class SuperMarioFrame extends JFrame {
 		bgMap.add(label);
 		label.setBounds(-bgMap.getX(), 0, 1500, 540);
 		bgMap.remove(player);
-		bgMap.remove(monster1);
-		bgMap.remove(monster2);
-		bgMap.remove(monster3);
+		for (int i = 0; i < monsters.length; i++) {
+			bgMap.remove(monsters[i]);
+		}
 		bgMap.remove(mushroom);
 		this.repaint();
 
@@ -95,9 +94,10 @@ public class SuperMarioFrame extends JFrame {
 		bgMap.add(winImage);
 		winImage.setBounds(-bgMap.getX(), 0, 1500, 540);
 		bgMap.remove(player);
-		bgMap.remove(monster1);
-		bgMap.remove(monster2);
-		bgMap.remove(monster3);
+		bgMap.remove(player);
+		for (int i = 0; i < monsters.length; i++) {
+			bgMap.remove(monsters[i]);
+		}
 		bgMap.remove(mushroom);
 		this.repaint();
 	}
@@ -167,7 +167,7 @@ public class SuperMarioFrame extends JFrame {
 						break;
 					case KeyEvent.VK_DOWN:
 						player.enterChimney();
-						if(player.isEnter()) {
+						if (player.isEnter()) {
 							pointX = -5139;
 							bgMap.setLocation(pointX, pointY);
 						}

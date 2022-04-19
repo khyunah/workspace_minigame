@@ -9,7 +9,6 @@ import javax.swing.JLabel;
 
 import lombok.Data;
 
-@Data
 public class Item extends JLabel {
 
 	private SuperMarioFrame mContext;
@@ -25,6 +24,70 @@ public class Item extends JLabel {
 	private int itemY;
 
 	private boolean crashOk;
+	
+	public SuperMarioFrame getmContext() {
+		return mContext;
+	}
+
+	public void setmContext(SuperMarioFrame mContext) {
+		this.mContext = mContext;
+	}
+
+	public Item getItemContext() {
+		return itemContext;
+	}
+
+	public void setItemContext(Item itemContext) {
+		this.itemContext = itemContext;
+	}
+
+	public ImageIcon getItemMoney() {
+		return itemMoney;
+	}
+
+	public void setItemMoney(ImageIcon itemMoney) {
+		this.itemMoney = itemMoney;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	public BackgroundMapService getService() {
+		return service;
+	}
+
+	public void setService(BackgroundMapService service) {
+		this.service = service;
+	}
+
+	public int getItemX() {
+		return itemX;
+	}
+
+	public void setItemX(int itemX) {
+		this.itemX = itemX;
+	}
+
+	public int getItemY() {
+		return itemY;
+	}
+
+	public void setItemY(int itemY) {
+		this.itemY = itemY;
+	}
+
+	public boolean isCrashOk() {
+		return crashOk;
+	}
+
+	public void setCrashOk(boolean crashOk) {
+		this.crashOk = crashOk;
+	}
 
 	public Item(SuperMarioFrame mContext) {
 		this.mContext = mContext;
@@ -32,6 +95,7 @@ public class Item extends JLabel {
 		this.service = player.getService();
 		initObject();
 		initSetting();
+		crashOk = true;
 	}
 
 	private void initObject() {
@@ -39,7 +103,6 @@ public class Item extends JLabel {
 	}
 
 	private void initSetting() {
-		crashOk = false;
 		itemX = service.getCrashX() + 10;
 		itemY = service.getCrashY() - 50;
 

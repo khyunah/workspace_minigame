@@ -12,7 +12,7 @@ public class BackgroundMapService {
 	private BufferedImage bgServiceImage;
 
 	private final int LEFT_X = 0;
-	private final int LEFTANDRIGHT_Y = 45;
+	private final int LEFTANDRIGHT_Y = 50;
 	private final int RIGHT_X = 50;
 	private final int BOTTOM_X = 25;
 	private final int BOTTOM_Y = 65;
@@ -88,7 +88,7 @@ public class BackgroundMapService {
 			if (red == 255 && green == 0 && blue == 0) {
 				return true;
 				// 부딪히는 색상이 파랑색일때 ( == 게임 마지막 성에 도착했을때 )
-			} else if (red == 172 && green == 172 && blue == 255) {
+			} else if (red == 0 && green == 0 && blue == 255 || red == 172 && green == 172 && blue == 255) {
 				// 92 92 255 
 				isWin = true;
 				return false;
