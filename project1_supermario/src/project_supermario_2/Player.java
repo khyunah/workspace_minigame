@@ -208,7 +208,7 @@ public class Player extends JLabel implements Moveable {
 	}
 
 	public void enterChimney() {
-		if (x > 1855 && x < 1905 && y <= 255) {
+		if(x > 1855 && x < 1905 && y <= 255) {
 			enter = true;
 			new Thread(new Runnable() {
 
@@ -234,6 +234,7 @@ public class Player extends JLabel implements Moveable {
 				Item item = new Item(mContext);
 				mContext.getBgMap().add(item);
 				item.crashGetMoney();
+				
 			}
 		}).start();
 	}
