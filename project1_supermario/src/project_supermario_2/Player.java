@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 public class Player extends JLabel implements Moveable {
-		
+
 	// 위치 상태
 	private int x;
 	private int y;
@@ -19,12 +19,16 @@ public class Player extends JLabel implements Moveable {
 	private boolean down;
 
 	// 플레이어 속도 상태
-	private final int SPEED = 12;
+	private final int SPEED = 10;
 	private final int JUMPSPEED = 5;
 
 	// 벽에 충돌한 상태
 	private boolean leftWallCrash;
 	private boolean rightWallCrash;
+
+	private boolean crashOk;
+	private boolean isDie;
+	private boolean enter;
 
 	private ImageIcon superMario;
 	private ImageIcon player;
@@ -34,22 +38,19 @@ public class Player extends JLabel implements Moveable {
 	private ImageIcon playerL2;
 	private ImageIcon jumpR;
 	private ImageIcon jumpL;
+
 	private SuperMarioFrame mContext;
+	private BackgroundPlayerService service;
+
 	private int playerW;
 	private int playerH;
 
-	private BackgroundMapService service;
-
-	private boolean crashOk;
-
-	private boolean isDie;
-	
-	private boolean enter;
-
 	private Player(SuperMarioFrame mContext) {
 		this.mContext = mContext;
+		this.service = new BackgroundPlayerService(this);
 		initObject();
 		initSetting();
+		new Thread(service).start();
 	}
 
 	private static Player instance;
@@ -70,7 +71,7 @@ public class Player extends JLabel implements Moveable {
 		jumpR = new ImageIcon("images/jump_right.png");
 		jumpL = new ImageIcon("images/jump_left.png");
 		player = playerR;
-		service = new BackgroundMapService(this);
+		service = new BackgroundPlayerService(this);
 	}
 
 	private void initSetting() {
@@ -104,20 +105,16 @@ public class Player extends JLabel implements Moveable {
 			@Override
 			public void run() {
 				while (left) {
-					if (!service.checkLeftWall()) {
-						service.checkLeftWall();
-						service.checkBottomColor();
-						player = playerL;
-						setIcon(player);
-						x = x - SPEED;
-						setLocation(x, y);
-						initSleep(1);
-						player = playerL2;
-						setIcon(player);
-						x = x - SPEED;
-						setLocation(x, y);
-						initSleep(1);
-					}
+					player = playerL;
+					setIcon(player);
+					x = x - SPEED;
+					setLocation(x, y);
+					initSleep(30);
+					player = playerL2;
+					setIcon(player);
+					x = x - SPEED;
+					setLocation(x, y);
+					initSleep(30);
 				}
 			}
 		}).start();
@@ -132,23 +129,19 @@ public class Player extends JLabel implements Moveable {
 			public void run() {
 
 				while (right) {
-					if(service.isWin()) {
+					if (service.isWin()) {
 						mContext.showWinImage();
 					}
-					if (!service.checkRightWall()) {
-						service.checkRightWall();
-						service.checkBottomColor();
-						player = playerR;
-						setIcon(player);
-						x = x + SPEED;
-						setLocation(x, y);
-						initSleep(10);
-						player = playerR2;
-						setIcon(player);
-						x = x + SPEED;
-						setLocation(x, y);
-						initSleep(40);
-					}
+					player = playerR;
+					setIcon(player);
+					x = x + SPEED;
+					setLocation(x, y);
+					initSleep(30);
+					player = playerR2;
+					setIcon(player);
+					x = x + SPEED;
+					setLocation(x, y);
+					initSleep(30);
 				}
 			}
 		}).start();
@@ -161,9 +154,7 @@ public class Player extends JLabel implements Moveable {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				for (int i = 0; i < (200/ JUMPSPEED); i++) {
-					service.checkTopColor();
-					service.checkBottomColor();
+				for (int i = 0; i < (200 / JUMPSPEED); i++) {
 					y = y - JUMPSPEED;
 					setLocation(x, y);
 					initSleep(10);
@@ -184,7 +175,7 @@ public class Player extends JLabel implements Moveable {
 					player = playerR;
 					setIcon(player);
 				}
-				if(crashOk) {
+				if (crashOk) {
 					getMoney();
 				}
 				crashOk = false;
@@ -204,11 +195,8 @@ public class Player extends JLabel implements Moveable {
 				while (down) {
 					if (y < 600) {
 						if (y > 550) {
-//							mContext.image = new ImageIcon("images/gameover.jpg").getImage();
-//							mContext.repaint();
 							mContext.showGameoverImage();
 						}
-						service.checkBottomColor();
 						y = y + JUMPSPEED;
 						setLocation(x, y);
 						initSleep(3);
@@ -218,12 +206,12 @@ public class Player extends JLabel implements Moveable {
 			}
 		}).start();
 	}
-	
+
 	public void enterChimney() {
-		enter = true;
-		if(x > 1855 && x < 1905 && y <= 255) {
+		if (x > 1855 && x < 1905 && y <= 255) {
+			enter = true;
 			new Thread(new Runnable() {
-				
+
 				@Override
 				public void run() {
 					x = 5395;
@@ -236,12 +224,11 @@ public class Player extends JLabel implements Moveable {
 				}
 			}).start();
 		}
-//		enter = false;
 	}
-	
+
 	private void getMoney() {
 		new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				Item item = new Item(mContext);
@@ -250,12 +237,6 @@ public class Player extends JLabel implements Moveable {
 			}
 		}).start();
 	}
-
-//	public void giant() {
-//		this.setSize(playerW + 50, playerH + 60);
-//		ImageIcon supermario = new ImageIcon("images/Sjump_right.png");
-//		setIcon(supermario);
-//	}
 
 	public void initSleep(int sleepNum) {
 		try {

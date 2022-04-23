@@ -9,11 +9,11 @@ import javax.imageio.ImageIO;
 
 public class BackgroundMonsterService implements Runnable {
 
-	BufferedImage bgImage;
-	Monster monster;
+	private BufferedImage bgImage;
+	private Monster monster;
 
-	int monsterLeftX;
-	int monsterRightX;
+	private int monsterLeftX;
+	private int monsterRightX;
 
 	public BackgroundMonsterService(Monster monster) {
 		this.monster = monster;
@@ -26,7 +26,6 @@ public class BackgroundMonsterService implements Runnable {
 	}
 
 	public void initSetting() {
-
 		monsterLeftX = 0;
 		monsterRightX = 30;
 	}
@@ -36,14 +35,9 @@ public class BackgroundMonsterService implements Runnable {
 		while (true) {
 			try {
 				Color monsterLC = new Color(bgImage.getRGB(monster.getMonsterX(), monster.getMonsterY()));
-//				System.out.println("몬스터 좌표 색상: " + monsterLC);
 				Color monsterRC = new Color(bgImage.getRGB(monster.getMonsterX() + 30, monster.getMonsterY()));
-//				System.out.println("몬스터 좌표 색상: " + monsterRC);
 
-
-
-				if ((monsterRC.getRed() == 255 && monsterRC.getGreen() == 0 && monsterRC.getBlue() == 0)
-						|| (monsterRC.getRed() == 0 && monsterRC.getGreen() == 255 && monsterRC.getBlue() == 0)) {
+				if ((monsterRC.getRed() == 255 && monsterRC.getGreen() == 0 && monsterRC.getBlue() == 0)) {
 					monster.setRightCrash(true);
 				} else if (monsterLC.getRed() == 255 && monsterLC.getGreen() == 0 && monsterLC.getBlue() == 0) {
 					monster.setLeftCrash(true);
@@ -57,9 +51,6 @@ public class BackgroundMonsterService implements Runnable {
 			} catch (Exception e) {
 				System.out.println("오류");
 			}
-
 		}
-
 	}
-
 }

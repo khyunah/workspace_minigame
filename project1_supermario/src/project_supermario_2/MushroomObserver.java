@@ -1,6 +1,5 @@
 package project_supermario_2;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +13,6 @@ public class MushroomObserver {
 
 	private BufferedImage image;
 	private Mushroom mushroom;
-	private Player player;
 
 	public MushroomObserver(Mushroom mushroom) {
 		this.mushroom = mushroom;
@@ -54,12 +52,5 @@ public class MushroomObserver {
 			// 바닥 하얀색
 		}
 		return false;
-
 	}
-	
-	
-	
-
-	
-	
 }

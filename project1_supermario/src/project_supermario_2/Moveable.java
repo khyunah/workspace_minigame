@@ -3,6 +3,6 @@ package project_supermario_2;
 public interface Moveable {
 	void left();
 	void right();
-	void up();
+	default void up() {};
 	void down();
 }

@@ -19,7 +19,7 @@ public class Monster extends JLabel {
 	private ImageIcon enemyL;
 	private ImageIcon enemyR;
 	private ImageIcon enemy;
-	Player player;
+	private Player player;
 	private SuperMarioFrame mContext;
 
 	public Monster(int monsterX, int monsterY, SuperMarioFrame mContext) {
@@ -37,7 +37,6 @@ public class Monster extends JLabel {
 	}
 
 	private void initObject() {
-//		monsterBg = new BackgroundMonsterService(this);
 		enemyL = new ImageIcon("images/enemy_left.png");
 		enemyR = new ImageIcon("images/enemy_right.png");
 		enemy = enemyR;
@@ -45,15 +44,12 @@ public class Monster extends JLabel {
 	}
 
 	private void initSetting() {
-
 		setIcon(enemyR);
 		setSize(30, 30);
 		setLocation(monsterX, monsterY);
 
 		leftCrash = false;
 		rightCrash = false;
-		
-
 	}
 
 	private void addEventListener() {
@@ -98,8 +94,6 @@ public class Monster extends JLabel {
 		if ( (Math.abs(player.getX()-monsterX) < 45) && (Math.abs(player.getY() -monsterY) < 55)) {
 			System.out.println("게임 종료");
 			mContext.showGameoverImage();
-			
 		}
 	}
-
 }

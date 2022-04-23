@@ -9,22 +9,17 @@ import javax.swing.JLabel;
 
 import lombok.Data;
 
-@Data
 public class Item extends JLabel {
 
-	private SuperMarioFrame mContext;
-
+	private Player player;
 	private Item itemContext = this;
+	private SuperMarioFrame mContext;
+	private BackgroundPlayerService service;
 
 	private ImageIcon itemMoney;
 
-	private Player player;
-	private BackgroundMapService service;
-
 	private int itemX;
 	private int itemY;
-
-	private boolean crashOk;
 
 	public Item(SuperMarioFrame mContext) {
 		this.mContext = mContext;
@@ -39,7 +34,6 @@ public class Item extends JLabel {
 	}
 
 	private void initSetting() {
-		crashOk = false;
 		itemX = service.getCrashX() + 10;
 		itemY = service.getCrashY() - 50;
 

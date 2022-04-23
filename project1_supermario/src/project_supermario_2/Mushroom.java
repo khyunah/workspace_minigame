@@ -3,7 +3,6 @@ package project_supermario_2;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
-import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -58,12 +57,6 @@ public class Mushroom extends JLabel implements Moveable {
 			public void run() {
 
 				while (true) {
-					try {
-						crashMushroom();
-					} catch (AWTException e) {
-						e.printStackTrace();
-					}
-					
 					if (mushroomObserver.checkbottom()) {
 						down();
 					} else {
@@ -82,7 +75,6 @@ public class Mushroom extends JLabel implements Moveable {
 				}
 			}
 		}).start();
-
 	}
 
 	@Override
@@ -96,9 +88,7 @@ public class Mushroom extends JLabel implements Moveable {
 			mushroomX--;
 			setLocation(mushroomX, mushroomY);
 			threadSleep(25);
-
 		}
-
 	}
 
 	@Override
@@ -130,20 +120,21 @@ public class Mushroom extends JLabel implements Moveable {
 		}
 	}
 
-	@Override
-	public void up() {
-		
-	}
-
+	
 	public void crashMushroom() throws AWTException {
 		if ((Math.abs(mushroomX - player.getX()) < 10)) {
+			
 			mush.setVisible(false);
 			setIcon(null);
-//			Player.getInstance(mContext).giant();
-
-// 			player.setPlayerW(100);
-//			player.setPlayerH(120);
-//			player.getInstance(mContext).setIcon(player.getSuperMario());
+			
+			Robot r;
+			try {
+				r = new Robot();
+				r.keyPress(KeyEvent.VK_Z);
+				r.keyRelease(KeyEvent.VK_Z);
+			} catch (AWTException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
